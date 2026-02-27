@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Medical Concierge Assistant</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b7cee",
+                        "primary-dark": "#1a5bb8",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2432",
+                        "text-main": "#1e293b", // slate-800
+                        "text-secondary": "#64748b", // slate-500
+                        "border-light": "#e2e8f0", // slate-200
+                        "border-dark": "#2d3748", // slate-700
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit browsers */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-main dark:text-white h-screen overflow-hidden">
+<div class="flex h-full w-full">
+<!-- Sidebar -->
+<aside class="hidden md:flex flex-col w-72 h-full bg-surface-light dark:bg-surface-dark border-r border-border-light dark:border-border-dark flex-shrink-0 transition-colors duration-200">
+<!-- Header -->
+<div class="p-6 border-b border-border-light dark:border-border-dark flex items-center gap-3">
+<div class="h-10 w-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-size: 24px;">medical_services</span>
+</div>
+<div>
+<h1 class="text-base font-bold text-text-main dark:text-white leading-tight">Concierge Care</h1>
+<p class="text-xs text-text-secondary dark:text-slate-400">Premium Medical Assistance</p>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-6">
+<!-- Actions -->
+<div class="flex flex-col gap-2">
+<button class="flex items-center gap-3 w-full px-4 py-3 bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors shadow-sm group">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span class="text-sm font-semibold">New Consultation</span>
+</button>
+</div>
+<!-- Quick Links -->
+<div class="flex flex-col gap-1">
+<h3 class="px-4 text-xs font-semibold text-text-secondary dark:text-slate-500 uppercase tracking-wider mb-2">Menu</h3>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-text-main dark:text-slate-200 hover:bg-background-light dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[22px] text-text-secondary dark:text-slate-400 group-hover:text-primary transition-colors">history</span>
+<span class="text-sm font-medium">Recent Consultations</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-text-main dark:text-slate-200 hover:bg-background-light dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[22px] text-text-secondary dark:text-slate-400 group-hover:text-primary transition-colors">account_circle</span>
+<span class="text-sm font-medium">My Health Profile</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-text-main dark:text-slate-200 hover:bg-background-light dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[22px] text-text-secondary dark:text-slate-400 group-hover:text-primary transition-colors">folder_open</span>
+<span class="text-sm font-medium">Medical Records</span>
+</a>
+</div>
+<!-- Recent Chats -->
+<div class="flex flex-col gap-1 mt-auto">
+<h3 class="px-4 text-xs font-semibold text-text-secondary dark:text-slate-500 uppercase tracking-wider mb-2">Recent History</h3>
+<div class="px-4 py-2 border-l-2 border-primary bg-primary/5 dark:bg-primary/10">
+<p class="text-sm font-medium text-text-main dark:text-white truncate">Cardiac Second Opinion</p>
+<p class="text-xs text-text-secondary dark:text-slate-400">Today, 2:30 PM</p>
+</div>
+<div class="px-4 py-2 border-l-2 border-transparent hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer">
+<p class="text-sm font-medium text-text-main dark:text-white truncate">Dermatology Referral</p>
+<p class="text-xs text-text-secondary dark:text-slate-400">Yesterday</p>
+</div>
+</div>
+</nav>
+<!-- Bottom Actions -->
+<div class="p-4 border-t border-border-light dark:border-border-dark flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-text-main dark:text-slate-200 hover:bg-background-light dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px] text-text-secondary">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+<button class="flex items-center gap-3 px-4 py-2 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors w-full text-left">
+<span class="material-symbols-outlined text-[22px]">logout</span>
+<span class="text-sm font-medium">Log Out</span>
+</button>
+</div>
+</aside>
+<!-- Main Chat Area -->
+<main class="flex-1 flex flex-col h-full bg-background-light dark:bg-background-dark relative">
+<!-- Chat Header -->
+<header class="flex-shrink-0 bg-surface-light dark:bg-surface-dark border-b border-border-light dark:border-border-dark px-6 py-4 flex items-center justify-between z-10 shadow-sm">
+<div class="flex items-center gap-4">
+<div class="md:hidden p-2 -ml-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer">
+<span class="material-symbols-outlined">menu</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-blue-400 p-0.5">
+<div class="w-full h-full rounded-full bg-surface-light dark:bg-surface-dark flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Female doctor avatar smiling warmly" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQbrdbEVnC0HTUU5JPfOO-1UJz4lnlujGRDDXfjU276Cu-pv7RMnSQ2u5D1p-PCBF_gEoHOsj0wW0tk6XUes6xEZwVNYQG8cY6CjpfKgaPlP4xeMcpfOlMYvuOFJPGkBuri0Z8F5BhTXWE1ju8J0Kq3XItBSHf2lnQq4i1CX3Q9IWfpUxced9IPkJGodgOVg3BGXM1HEUiVM1iLrfxM567KMrmnTXd96loId8HBBF6LyJn_0Ewhk_A-XBpibUg6guoObiDyTYkxj0"/>
+</div>
+</div>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-surface-light dark:border-surface-dark rounded-full"></span>
+</div>
+<div>
+<h2 class="text-lg font-bold text-text-main dark:text-white leading-tight">Dr. AI Assistant</h2>
+<p class="text-xs text-primary font-medium flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                                Online • Multilingual Support
+                            </p>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="hidden sm:flex items-center justify-center h-9 px-3 gap-2 rounded-lg bg-background-light dark:bg-slate-800 text-text-main dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-sm font-medium border border-border-light dark:border-border-dark">
+<span class="material-symbols-outlined text-[18px]">translate</span>
+<span>EN/TH/CN</span>
+</button>
+<button class="flex items-center justify-center w-9 h-9 rounded-lg bg-background-light dark:bg-slate-800 text-text-main dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors border border-border-light dark:border-border-dark relative">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-2 right-2.5 w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+</button>
+<button class="flex items-center justify-center h-9 px-4 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/40 transition-colors text-sm font-bold border border-red-100 dark:border-red-900/30">
+                        Emergency
+                    </button>
+</div>
+</header>
+<!-- Chat Content -->
+<div class="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 flex flex-col gap-6" id="chat-container">
+<!-- Date Separator -->
+<div class="flex justify-center">
+<span class="text-xs font-medium text-text-secondary dark:text-slate-500 bg-surface-light dark:bg-slate-800 px-3 py-1 rounded-full border border-border-light dark:border-slate-700 shadow-sm">Today, October 24</span>
+</div>
+<!-- AI Message -->
+<div class="flex items-start gap-4 max-w-3xl">
+<div class="flex-shrink-0 w-10 h-10 rounded-full overflow-hidden shadow-sm border border-border-light dark:border-slate-700">
+<img class="w-full h-full object-cover" data-alt="Female doctor avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsIYIi4CJWbTmiVlQ02U6VtWXs7i09DOez4UdT2Y-xWJG4-FlanXVJk6tfHj52Ajt3UPPMl8UMSYmmt8cJ_45D_XgGU8PARjz-C6tbWDyR0aeUjmx5ycref_e_NM5g5iAgwQLJX_St3bxxymT1liZsG-1WUdm0LLgUQZuySieOKNIYyYS5vafCepVX1yTcUe06XqMJzJ7A8DKw2we21Paemzf1fxoi6wL-zdS4BeC5ZdjM2yJ_aCGt6AWmmOxxe2Spqrnq9W-wST0"/>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-baseline gap-2">
+<span class="text-sm font-bold text-text-main dark:text-white">Dr. AI Concierge</span>
+<span class="text-xs text-text-secondary dark:text-slate-400">10:00 AM</span>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl rounded-tl-none shadow-sm border border-border-light dark:border-slate-700 text-text-main dark:text-slate-200 text-sm leading-relaxed">
+<p>Hello! Sawasdee krub! Ni hao! 👋</p>
+<p class="mt-2">I am your personal medical concierge. How can I assist you with your health journey today?</p>
+<p class="mt-2 text-text-secondary dark:text-slate-400">I can help with:</p>
+<ul class="list-disc ml-5 mt-1 space-y-1 text-text-secondary dark:text-slate-400">
+<li>Booking specialist appointments</li>
+<li>Arranging airport transport</li>
+<li>Processing medical records</li>
+<li>Second opinions</li>
+</ul>
+</div>
+<!-- Suggestion Chips -->
+<div class="flex flex-wrap gap-2 mt-1">
+<button class="px-4 py-2 bg-background-light dark:bg-slate-800 hover:bg-primary/10 hover:text-primary dark:hover:text-primary border border-border-light dark:border-slate-700 rounded-full text-sm font-medium transition-colors text-text-secondary dark:text-slate-300">
+                                📅 Book Appointment
+                            </button>
+<button class="px-4 py-2 bg-background-light dark:bg-slate-800 hover:bg-primary/10 hover:text-primary dark:hover:text-primary border border-border-light dark:border-slate-700 rounded-full text-sm font-medium transition-colors text-text-secondary dark:text-slate-300">
+                                🩺 Second Opinion
+                            </button>
+<button class="px-4 py-2 bg-background-light dark:bg-slate-800 hover:bg-primary/10 hover:text-primary dark:hover:text-primary border border-border-light dark:border-slate-700 rounded-full text-sm font-medium transition-colors text-text-secondary dark:text-slate-300">
+                                🚕 Airport Transport
+                            </button>
+<button class="px-4 py-2 bg-background-light dark:bg-slate-800 hover:bg-primary/10 hover:text-primary dark:hover:text-primary border border-border-light dark:border-slate-700 rounded-full text-sm font-medium transition-colors text-text-secondary dark:text-slate-300">
+                                📂 Upload Records
+                            </button>
+</div>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex items-start gap-4 max-w-3xl self-end flex-row-reverse">
+<div class="flex-shrink-0 w-10 h-10 rounded-full overflow-hidden shadow-sm border border-border-light dark:border-slate-700 bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
+                        JD
+                    </div>
+<div class="flex flex-col gap-2 items-end">
+<div class="flex items-baseline gap-2 flex-row-reverse">
+<span class="text-sm font-bold text-text-main dark:text-white">Patient</span>
+<span class="text-xs text-text-secondary dark:text-slate-400">10:05 AM</span>
+</div>
+<div class="bg-primary text-white p-4 rounded-2xl rounded-tr-none shadow-md text-sm leading-relaxed">
+<p>I'm looking for a second opinion on a cardiac procedure. I have my angiogram results ready.</p>
+</div>
+</div>
+</div>
+<!-- AI Typing Indicator -->
+<div class="flex items-start gap-4 max-w-3xl">
+<div class="flex-shrink-0 w-8 h-8 rounded-full overflow-hidden shadow-sm border border-border-light dark:border-slate-700 self-end mb-1">
+<img class="w-full h-full object-cover" data-alt="Female doctor avatar small" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoFP09kju5J-COO7hhEMoCd0biibZ6dDDQiptfyZVl9Vb4Mx0hvf1SAnjdqxux3nDcpbSGTu3TGVBolIiLVqAv1k0MKNUOI38DVADIffFFsLbQoBIu-b8_sta8TB79qMNtOCAX6TGFw3ZA3WjK2jfDy-aQd1lMNZawaqBaauft9TEquW3m9VIA97wkefRNcNhy7giU3Zw_gr1Pys3T0OKxAnAl9n8c99vvZa5SDXhc63b5ZI-a5UDvrN-f7vxpAELAOQUniVhpECU"/>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark px-4 py-3 rounded-2xl rounded-bl-none shadow-sm border border-border-light dark:border-slate-700 flex gap-1 items-center">
+<div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0ms"></div>
+<div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 150ms"></div>
+<div class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 300ms"></div>
+</div>
+</div>
+<!-- Spacer to push content up if not full -->
+<div class="mt-auto"></div>
+</div>
+<!-- Input Area -->
+<footer class="flex-shrink-0 bg-surface-light dark:bg-surface-dark border-t border-border-light dark:border-border-dark p-4 sm:p-6 z-10">
+<div class="max-w-4xl mx-auto flex flex-col gap-3">
+<!-- Input Wrapper -->
+<div class="relative flex items-end gap-2 bg-background-light dark:bg-slate-800 p-2 rounded-2xl border border-border-light dark:border-slate-700 focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-all shadow-sm">
+<!-- Attach Button -->
+<button class="p-2 text-text-secondary dark:text-slate-400 hover:text-primary hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl transition-colors self-end mb-0.5" title="Attach files">
+<span class="material-symbols-outlined text-[24px]">attach_file</span>
+</button>
+<!-- Text Area -->
+<textarea class="w-full bg-transparent border-none focus:ring-0 p-2.5 max-h-32 min-h-[44px] resize-none text-text-main dark:text-white placeholder-text-secondary dark:placeholder-slate-500 text-base" placeholder="Type your message here..." rows="1" style="field-sizing: content;"></textarea>
+<!-- Voice Button -->
+<button class="p-2 text-text-secondary dark:text-slate-400 hover:text-primary hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl transition-colors self-end mb-0.5" title="Voice input">
+<span class="material-symbols-outlined text-[24px]">mic</span>
+</button>
+<!-- Send Button -->
+<button class="p-2 bg-primary hover:bg-primary-dark text-white rounded-xl transition-colors self-end shadow-md mb-0.5" title="Send message">
+<span class="material-symbols-outlined text-[24px]">send</span>
+</button>
+</div>
+<div class="flex justify-between items-center px-1">
+<p class="text-[11px] text-text-secondary dark:text-slate-500">
+<span class="material-symbols-outlined text-[12px] align-middle mr-0.5">lock</span>
+                            Encrypted &amp; HIPAA Compliant
+                        </p>
+<p class="text-[11px] text-text-secondary dark:text-slate-500">
+                            Dr. AI Concierge can make mistakes. Please verify critical info.
+                        </p>
+</div>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

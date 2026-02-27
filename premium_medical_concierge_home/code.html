@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Premium Medical Concierge Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b7cee",
+                        "secondary": "#1e5baf",
+                        "accent": "#d4af37", 
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2634",
+                        "text-main": "#111418",
+                        "text-muted": "#617289",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "body": ["Manrope", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-slate-100 font-display antialiased transition-colors duration-200">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 w-full bg-surface-light/95 dark:bg-surface-dark/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+<div class="px-4 md:px-10 py-3 mx-auto max-w-7xl flex items-center justify-between whitespace-nowrap">
+<div class="flex items-center gap-3 text-text-main dark:text-white">
+<div class="size-8 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined !text-[32px]">medical_services</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Concierge Care</h2>
+</div>
+<div class="hidden lg:flex flex-1 justify-end gap-8">
+<nav class="flex items-center gap-6 xl:gap-9">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">The Journey</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Services</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Specialists</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">About Us</a>
+<div class="h-4 w-px bg-slate-300 dark:bg-slate-700"></div>
+<button class="text-sm font-medium flex items-center gap-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined !text-[18px]">language</span>
+                        TH/EN/CN
+                    </button>
+</nav>
+<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-5 bg-primary hover:bg-secondary transition-colors text-white text-sm font-bold shadow-lg shadow-primary/20">
+<span class="truncate">Book Consultation</span>
+</button>
+</div>
+<button class="lg:hidden p-2 text-text-main dark:text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<main class="flex-1 w-full">
+<!-- Hero Section -->
+<div class="relative">
+<div class="mx-auto max-w-7xl px-4 md:px-10 py-6 md:py-10">
+<div class="relative overflow-hidden rounded-2xl md:rounded-3xl min-h-[560px] flex flex-col justify-end p-6 md:p-12 lg:p-16 bg-cover bg-center group" data-alt="Doctor consulting patient in modern luxury medical office with city view" style='background-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.7) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDksQzb8LXTa-7PiGJ46GacOCcbHs6QqNOr4lrXF5NCs9oXr_2ybKDobcfNkBnHCxZMiOH7ZResuo3rjhpSZd6Di6-bO9_zaguIyNQJma6ViG1jluZuXsjwZRAJ2SbXzSMuFxjcNafQgPphg3-Alyi33W-F6v-FALsfveO0I_G3jT7mFFejHzvLmDhRKednQlXDd9CvFVP3rQ2s3YQdhvpI6HBKo2tNndhjrRhUhHPku-GYy2JmZ6-j3KOwJlINY8eg4BIKEd-wSyA");'>
+<div class="absolute inset-0 bg-primary/10 mix-blend-overlay pointer-events-none"></div>
+<div class="relative z-10 max-w-2xl flex flex-col gap-6 animate-fade-in-up">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 w-fit">
+<span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+<span class="text-xs font-semibold text-white uppercase tracking-wider">Premium Care</span>
+</div>
+<div class="flex flex-col gap-3 text-left">
+<h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight drop-shadow-sm">
+                                World-Class Medical <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300">Concierge</span>
+</h1>
+<h2 class="text-slate-100 text-base md:text-lg lg:text-xl font-medium leading-relaxed max-w-xl drop-shadow-sm">
+                                Experience end-to-end luxury patient care and international medical tourism services tailored for your peace of mind.
+                            </h2>
+</div>
+<div class="flex flex-wrap gap-4 mt-2">
+<button class="flex items-center justify-center rounded-lg h-12 px-6 bg-primary hover:bg-secondary transition-all text-white text-base font-bold shadow-lg shadow-primary/30 hover:shadow-xl hover:-translate-y-0.5">
+                                Request Second Opinion
+                            </button>
+<button class="flex items-center justify-center rounded-lg h-12 px-6 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white text-base font-bold transition-all hover:shadow-lg">
+                                Our Services
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- The Journey Section -->
+<div class="py-16 md:py-24 bg-background-light dark:bg-background-dark">
+<div class="mx-auto max-w-7xl px-4 md:px-10">
+<div class="flex flex-col md:flex-row gap-12 items-start md:items-end mb-12">
+<div class="flex-1 space-y-4">
+<h3 class="text-primary font-bold tracking-wider uppercase text-sm">Your Care Journey</h3>
+<h2 class="text-3xl md:text-4xl font-bold text-text-main dark:text-white leading-tight">
+                            Seamless Home-to-Hospital Support
+                        </h2>
+<p class="text-text-muted dark:text-slate-400 text-lg max-w-2xl leading-relaxed">
+                            From your doorstep to the hospital and back, we handle every logistical detail so you can focus entirely on healing.
+                        </p>
+</div>
+<button class="flex-none flex items-center gap-2 text-primary font-bold hover:text-secondary transition-colors group">
+<span>View Full Journey</span>
+<span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+<!-- Step 1 -->
+<div class="group relative flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-surface-light dark:bg-surface-dark p-6 transition-all hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-black/30 hover:-translate-y-1">
+<div class="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-2 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="text-lg font-bold text-text-main dark:text-white">Pre-Arrival Planning</h3>
+<p class="text-text-muted dark:text-slate-400 text-sm leading-relaxed">
+                                Tele-consultations with specialists and personalized itinerary creation tailored to your medical needs before you even leave home.
+                            </p>
+</div>
+<div class="absolute top-6 right-6 text-slate-200 dark:text-slate-800 font-black text-6xl -z-10 opacity-50">01</div>
+</div>
+<!-- Step 2 -->
+<div class="group relative flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-surface-light dark:bg-surface-dark p-6 transition-all hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-black/30 hover:-translate-y-1">
+<div class="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-2 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">medical_services</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="text-lg font-bold text-text-main dark:text-white">VIP Hospital Admission</h3>
+<p class="text-text-muted dark:text-slate-400 text-sm leading-relaxed">
+                                Express check-in via private entrance, luxury private suites, and dedicated multilingual liaisons by your side 24/7.
+                            </p>
+</div>
+<div class="absolute top-6 right-6 text-slate-200 dark:text-slate-800 font-black text-6xl -z-10 opacity-50">02</div>
+</div>
+<!-- Step 3 -->
+<div class="group relative flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-surface-light dark:bg-surface-dark p-6 transition-all hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-black/30 hover:-translate-y-1">
+<div class="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-2 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">home_health</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="text-lg font-bold text-text-main dark:text-white">Post-Care Recovery</h3>
+<p class="text-text-muted dark:text-slate-400 text-sm leading-relaxed">
+                                Comprehensive follow-up care plans, medication delivery to your accommodation, and safe medical transport home.
+                            </p>
+</div>
+<div class="absolute top-6 right-6 text-slate-200 dark:text-slate-800 font-black text-6xl -z-10 opacity-50">03</div>
+</div>
+</div>
+</div>
+</div>
+<!-- International Patient Services Section -->
+<div class="py-16 bg-white dark:bg-surface-dark">
+<div class="mx-auto max-w-7xl px-4 md:px-10">
+<div class="flex flex-col gap-12 lg:flex-row lg:items-center">
+<div class="w-full lg:w-1/2 relative">
+<div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl relative">
+<img alt="Private luxury medical transport vehicle interior" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrD5kUFcW7z1niixaHKtXyIvc63OEuiOoGwkX34rRtqdzuqcvmwkc_OMgsRau1CicwXU_kXfCPtniy71DiFjrBCideHAox5-MIsKSXqnh6XEiHZ3C2VjeAsox7HwCS-3I0Hro_1rL6cUYnIgWHbnI4T6ureiWQWY7eo8cbCinMIewnqUK9nuDua2fBXbimP_LI3bAsi9Up1-BFvIvHprBZyuW8D961pvYQwUcJPTkoZlHMdnkkiEDYJQr4569l65LYlzqFCIOTGYM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-accent">stars</span>
+<span class="text-sm font-bold uppercase tracking-wider text-accent">White Glove Service</span>
+</div>
+<p class="text-xl font-bold">Priority Airport Transfer</p>
+</div>
+</div>
+<!-- Floating Card -->
+<div class="hidden md:flex absolute -bottom-6 -right-6 bg-surface-light dark:bg-slate-800 p-4 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 max-w-xs items-center gap-4">
+<div class="size-12 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<div>
+<p class="text-sm font-bold text-text-main dark:text-white">JCI Accredited</p>
+<p class="text-xs text-text-muted dark:text-slate-400">International Quality Standards</p>
+</div>
+</div>
+</div>
+<div class="w-full lg:w-1/2 lg:pl-10 flex flex-col gap-8">
+<div>
+<h3 class="text-primary font-bold tracking-wider uppercase text-sm mb-2">Exclusive Benefits</h3>
+<h2 class="text-3xl md:text-4xl font-bold text-text-main dark:text-white leading-tight mb-4">
+                                International Patient Services
+                            </h2>
+<p class="text-text-muted dark:text-slate-400 text-lg leading-relaxed">
+                                We bridge the gap between borders. Our dedicated international team ensures language is never a barrier and comfort is always a priority.
+                            </p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8">
+<div class="flex gap-4">
+<div class="shrink-0 text-primary">
+<span class="material-symbols-outlined text-3xl">flight_land</span>
+</div>
+<div>
+<h4 class="font-bold text-text-main dark:text-white mb-1">Airport Meet &amp; Greet</h4>
+<p class="text-sm text-text-muted dark:text-slate-400">Personal assistant waiting at the gate for fast-track immigration.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="shrink-0 text-primary">
+<span class="material-symbols-outlined text-3xl">translate</span>
+</div>
+<div>
+<h4 class="font-bold text-text-main dark:text-white mb-1">Medical Interpretation</h4>
+<p class="text-sm text-text-muted dark:text-slate-400">Certified interpreters available in over 15 languages.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="shrink-0 text-primary">
+<span class="material-symbols-outlined text-3xl">local_taxi</span>
+</div>
+<div>
+<h4 class="font-bold text-text-main dark:text-white mb-1">VIP Transport</h4>
+<p class="text-sm text-text-muted dark:text-slate-400">Luxury sedan or limousine service for all local travel.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="shrink-0 text-primary">
+<span class="material-symbols-outlined text-3xl">credit_card</span>
+</div>
+<div>
+<h4 class="font-bold text-text-main dark:text-white mb-1">Insurance Liaison</h4>
+<p class="text-sm text-text-muted dark:text-slate-400">Direct billing coordination with international insurance providers.</p>
+</div>
+</div>
+</div>
+<div class="pt-4">
+<button class="inline-flex items-center justify-center rounded-lg h-12 px-8 bg-surface-light dark:bg-slate-800 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all text-base font-bold w-fit">
+                                View Concierge Packages
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- CTA Section -->
+<div class="py-20 bg-primary relative overflow-hidden">
+<!-- Abstract Patterns for texture -->
+<div class="absolute top-0 right-0 p-12 opacity-10">
+<svg fill="white" height="200" viewbox="0 0 200 200" width="200" xmlns="http://www.w3.org/2000/svg">
+<circle cx="100" cy="100" fill="none" r="80" stroke="currentColor" stroke-width="20"></circle>
+<circle cx="100" cy="100" fill="none" r="40" stroke="currentColor" stroke-width="20"></circle>
+</svg>
+</div>
+<div class="absolute bottom-0 left-0 p-8 opacity-10">
+<svg fill="white" height="150" viewbox="0 0 150 150" width="150" xmlns="http://www.w3.org/2000/svg">
+<rect fill="none" height="100" stroke="currentColor" stroke-width="15" width="100" x="25" y="25"></rect>
+</svg>
+</div>
+<div class="mx-auto max-w-4xl px-4 text-center relative z-10">
+<h2 class="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
+                    Ready to Experience Premium Care?
+                </h2>
+<p class="text-white/90 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Our medical specialists are ready to provide you with a comprehensive second opinion and a personalized treatment plan.
+                </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+<button class="w-full sm:w-auto min-w-[200px] h-14 bg-white text-primary rounded-lg font-bold text-lg hover:bg-slate-100 transition-colors shadow-xl">
+                        Book Consultation
+                    </button>
+<button class="w-full sm:w-auto min-w-[200px] h-14 bg-primary border-2 border-white/30 text-white rounded-lg font-bold text-lg hover:bg-white/10 transition-colors">
+                        Contact Specialist
+                    </button>
+</div>
+<p class="mt-8 text-white/70 text-sm">
+                    Operating 24/7 • Global Assistance Center • Confidential
+                </p>
+</div>
+</div>
+</main>
+<footer class="bg-surface-dark text-slate-400 py-12 border-t border-slate-800">
+<div class="mx-auto max-w-7xl px-4 md:px-10">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+<div class="col-span-1 md:col-span-2">
+<div class="flex items-center gap-2 text-white mb-4">
+<span class="material-symbols-outlined text-primary">medical_services</span>
+<span class="font-bold text-xl">Concierge Care</span>
+</div>
+<p class="text-sm max-w-xs mb-6">
+                        Your trusted partner in international medical tourism and premium healthcare management.
+                    </p>
+<div class="flex gap-4">
+<a class="text-slate-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">social_leaderboard</span></a>
+<a class="text-slate-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">smart_display</span></a> <!-- Youtube replacement -->
+<a class="text-slate-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">photo_camera</span></a> <!-- Instagram replacement -->
+</div>
+</div>
+<div>
+<h4 class="text-white font-bold mb-4">Services</h4>
+<ul class="space-y-2 text-sm">
+<li><a class="hover:text-primary transition-colors" href="#">Second Opinions</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Medical Travel</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Health Screening</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Specialist Search</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-4">Contact</h4>
+<ul class="space-y-2 text-sm">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">call</span>
+<span>+1 (800) 123-4567</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+<span>care@concierge.med</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span>Global HQ, Bangkok</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+<p>© 2024 Concierge Care. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="hover:text-white transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-white transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</body></html>
