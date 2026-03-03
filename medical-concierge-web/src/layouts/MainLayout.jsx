@@ -112,7 +112,7 @@ const Layout = () => {
                             className="flex items-center gap-2 text-sm font-medium py-2.5 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-text-muted dark:text-slate-400 transition-colors"
                         >
                             <span className="material-symbols-outlined !text-[18px]">language</span>
-                            Language: {language.toUpperCase()}
+                            {t('langLabel')}: {language.toUpperCase()}
                         </button>
                         <button
                             onClick={() => { navigate('/services'); setIsMenuOpen(false); }}

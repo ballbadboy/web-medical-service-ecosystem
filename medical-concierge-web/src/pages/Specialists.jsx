@@ -91,6 +91,16 @@ const specialistsData = [
 
 const filterKeys = ['All Specialties', 'Cardiology', 'Orthopedics', 'Oncology', 'Neurology', 'Stem Cell', 'Cosmetic'];
 
+const filterMap = {
+    'All Specialties': () => true,
+    'Cardiology': (doc) => doc.title.toLowerCase().includes('cardiolog') || doc.specialties.some((s) => ['cardiac', 'coronary', 'arrhythmia', 'heart failure'].some((k) => s.toLowerCase().includes(k))),
+    'Orthopedics': (doc) => doc.title.toLowerCase().includes('orthopedic') || doc.specialties.some((s) => ['joint', 'spine', 'orthopedic', 'sports medicine'].some((k) => s.toLowerCase().includes(k))),
+    'Oncology': (doc) => doc.title.toLowerCase().includes('oncolog') || doc.specialties.some((s) => ['cancer', 'oncolog', 'immunotherapy', 'tumor'].some((k) => s.toLowerCase().includes(k))),
+    'Neurology': (doc) => doc.title.toLowerCase().includes('neuro') || doc.specialties.some((s) => ['brain', 'epilepsy', 'neurology', 'deep brain'].some((k) => s.toLowerCase().includes(k))),
+    'Stem Cell': (doc) => doc.title.toLowerCase().includes('stem cell') || doc.specialties.some((s) => ['stem cell', 'regenerative', 'anti-aging'].some((k) => s.toLowerCase().includes(k))),
+    'Cosmetic': (doc) => doc.title.toLowerCase().includes('plastic') || doc.title.toLowerCase().includes('cosmetic') || doc.specialties.some((s) => ['facial', 'rhinoplasty', 'contouring', 'reconstruct'].some((k) => s.toLowerCase().includes(k))),
+};
+
 const Specialists = () => {
     const { t } = useLanguage();
     const [search, setSearch] = useState('');
@@ -103,7 +113,8 @@ const Specialists = () => {
             doc.title.toLowerCase().includes(search.toLowerCase()) ||
             doc.specialties.some((s) => s.toLowerCase().includes(search.toLowerCase()));
         const matchAvail = availableOnly ? doc.available : true;
-        return matchSearch && matchAvail;
+        const matchFilter = filterMap[activeFilter] ? filterMap[activeFilter](doc) : true;
+        return matchSearch && matchAvail && matchFilter;
     });
 
     return (
@@ -247,8 +258,8 @@ const Specialists = () => {
                                     <div className="flex gap-3 mt-auto pt-2">
                                         <button className={`flex-1 h-10 rounded-lg text-sm font-bold transition-colors ${doc.available
                                             ? 'bg-primary hover:bg-secondary text-white shadow-md shadow-primary/20'
-                                            : 'bg-slate-100 dark:bg-slate-800 text-slate-400 cursor-not-allowed'
-                                            }`} disabled={!doc.available}>
+                                            : 'bg-amber-50 hover:bg-amber-100 dark:bg-amber-900/20 dark:hover:bg-amber-900/30 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800'
+                                            }`}>
                                             {doc.available ? t('bookConsultation') : t('joinWaitlist')}
                                         </button>
                                         <Link to="/ai-assistant" className="flex items-center justify-center w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary hover:text-primary text-text-muted dark:text-slate-400 transition-colors" title="Ask AI about this doctor">

@@ -177,10 +177,27 @@ const AiAssistant = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isTyping, setIsTyping] = useState(false);
     const [showEmergency, setShowEmergency] = useState(false);
+    const [isDark, setIsDark] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('theme') === 'dark';
+        }
+        return false;
+    });
     const chatEndRef = useRef(null);
     const fileInputRef = useRef(null);
     const textareaRef = useRef(null);
     const nextId = useRef(10);
+
+    useEffect(() => {
+        const root = document.documentElement;
+        if (isDark) {
+            root.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            root.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    }, [isDark]);
 
     useEffect(() => {
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -393,6 +410,13 @@ const AiAssistant = () => {
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
+                        <button
+                            onClick={() => setIsDark(!isDark)}
+                            className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-text-muted dark:text-slate-400"
+                            title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+                        >
+                            <span className="material-symbols-outlined !text-[20px]">{isDark ? 'light_mode' : 'dark_mode'}</span>
+                        </button>
                         <button className="hidden sm:flex items-center justify-center h-9 px-3 gap-1.5 rounded-lg bg-background-light dark:bg-slate-800 border border-border-light dark:border-slate-700 text-sm font-medium text-text-main dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
                             <span className="material-symbols-outlined text-[18px]">translate</span>
                             <span>EN / TH / CN</span>

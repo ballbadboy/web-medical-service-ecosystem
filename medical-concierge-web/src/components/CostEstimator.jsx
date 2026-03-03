@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const CostEstimator = () => {
     const navigate = useNavigate();
+    const { t } = useLanguage();
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
         condition: '',
@@ -41,12 +43,12 @@ const CostEstimator = () => {
                 <div>
                     <h3 className="text-xl font-bold flex items-center gap-2">
                         <span className="material-symbols-outlined">calculate</span>
-                        Interactive Cost Estimator
+                        {t('ceTitle')}
                     </h3>
-                    <p className="text-white/80 text-sm mt-1">Get a transparent estimate for your medical journey.</p>
+                    <p className="text-white/80 text-sm mt-1">{t('ceDesc')}</p>
                 </div>
                 <div className="text-right">
-                    <div className="text-xs text-white/70 uppercase tracking-wider font-bold mb-1">Estimated Cost</div>
+                    <div className="text-xs text-white/70 uppercase tracking-wider font-bold mb-1">{t('ceEstimatedCost')}</div>
                     <div className="text-3xl font-black">${calculateEstimate().toLocaleString()}</div>
                 </div>
             </div>
@@ -78,15 +80,15 @@ const CostEstimator = () => {
                 {/* Step 1: Medical Needs */}
                 {step === 1 && (
                     <div className="animate-fade-in-up">
-                        <h4 className="text-lg font-bold text-text-main dark:text-white mb-4">What type of care are you seeking?</h4>
+                        <h4 className="text-lg font-bold text-text-main dark:text-white mb-4">{t('ceStep1Title')}</h4>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {[
-                                { id: 'orthopedic', icon: 'bone', label: 'Orthopedic Surgery' },
-                                { id: 'cardiac', icon: 'ecg_heart', label: 'Cardiac Care' },
-                                { id: 'stemcell', icon: 'science', label: 'Stem Cell Therapy' },
-                                { id: 'cosmetic', icon: 'face', label: 'Cosmetic / Plastic' },
-                                { id: 'dental', icon: 'dentistry', label: 'Dental Procedures' },
-                                { id: 'other', icon: 'medical_services', label: 'Other Treatment' }
+                                { id: 'orthopedic', icon: 'bone', label: t('ceOrthopedic') },
+                                { id: 'cardiac', icon: 'ecg_heart', label: t('ceCardiac') },
+                                { id: 'stemcell', icon: 'science', label: t('ceStemCell') },
+                                { id: 'cosmetic', icon: 'face', label: t('ceCosmetic') },
+                                { id: 'dental', icon: 'dentistry', label: t('ceDental') },
+                                { id: 'other', icon: 'medical_services', label: t('ceOther') }
                             ].map(item => (
                                 <button
                                     key={item.id}
@@ -107,7 +109,7 @@ const CostEstimator = () => {
                 {/* Step 2: Logistics & Care */}
                 {step === 2 && (
                     <div className="animate-fade-in-up">
-                        <h4 className="text-lg font-bold text-text-main dark:text-white mb-4">Select Concierge Add-ons</h4>
+                        <h4 className="text-lg font-bold text-text-main dark:text-white mb-4">{t('ceStep2Title')}</h4>
                         <div className="space-y-4">
                             {/* Addon 1 */}
                             <label className={`flex items-start gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${formData.transport ? 'border-primary bg-primary/5' : 'border-slate-200 dark:border-slate-700'
@@ -122,10 +124,10 @@ const CostEstimator = () => {
                                 </div>
                                 <div className="flex-1">
                                     <div className="flex justify-between items-start">
-                                        <h5 className="font-bold text-text-main dark:text-white">VIP Ground Transport</h5>
+                                        <h5 className="font-bold text-text-main dark:text-white">{t('ceTransportTitle')}</h5>
                                         <span className="text-primary font-bold">+$500</span>
                                     </div>
-                                    <p className="text-sm text-text-muted dark:text-slate-400 mt-1">Airport meet & greet, priority immigration, and all local hospital transfers in a luxury van.</p>
+                                    <p className="text-sm text-text-muted dark:text-slate-400 mt-1">{t('ceTransportDesc')}</p>
                                 </div>
                             </label>
 
@@ -142,10 +144,10 @@ const CostEstimator = () => {
                                 </div>
                                 <div className="flex-1">
                                     <div className="flex justify-between items-start">
-                                        <h5 className="font-bold text-text-main dark:text-white">Post-Surgery Nursing (1 Week)</h5>
+                                        <h5 className="font-bold text-text-main dark:text-white">{t('ceNursingTitle')}</h5>
                                         <span className="text-primary font-bold">+$2,000</span>
                                     </div>
-                                    <p className="text-sm text-text-muted dark:text-slate-400 mt-1">Private registered nurse at your hotel to assist with recovery, medications, and wound care.</p>
+                                    <p className="text-sm text-text-muted dark:text-slate-400 mt-1">{t('ceNursingDesc')}</p>
                                 </div>
                             </label>
 
@@ -162,10 +164,10 @@ const CostEstimator = () => {
                                 </div>
                                 <div className="flex-1">
                                     <div className="flex justify-between items-start">
-                                        <h5 className="font-bold text-text-main dark:text-white">Dedicated Medical Interpreter</h5>
+                                        <h5 className="font-bold text-text-main dark:text-white">{t('ceInterpTitle')}</h5>
                                         <span className="text-primary font-bold">+$300</span>
                                     </div>
-                                    <p className="text-sm text-text-muted dark:text-slate-400 mt-1">Native speaker to accompany you to all consultations and translate medical documents.</p>
+                                    <p className="text-sm text-text-muted dark:text-slate-400 mt-1">{t('ceInterpDesc')}</p>
                                 </div>
                             </label>
                         </div>
@@ -178,12 +180,12 @@ const CostEstimator = () => {
                         <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                             <span className="material-symbols-outlined !text-[40px]">check_circle</span>
                         </div>
-                        <h4 className="text-2xl font-black text-text-main dark:text-white mb-2">Estimate Complete</h4>
+                        <h4 className="text-2xl font-black text-text-main dark:text-white mb-2">{t('ceStep3Title')}</h4>
                         <p className="text-text-muted dark:text-slate-400 mb-8 max-w-md mx-auto">
-                            This is a preliminary estimate. Please book a consultation with our AI Assistant or human specialists to review your actual medical files for an exact quote.
+                            {t('ceStep3Desc')}
                         </p>
                         <button onClick={() => navigate('/ai-assistant')} className="h-12 px-8 bg-primary hover:bg-secondary text-white font-bold rounded-lg transition-colors shadow-lg">
-                            Proceed to Consultation
+                            {t('ceProceedBtn')}
                         </button>
                     </div>
                 )}
@@ -198,7 +200,7 @@ const CostEstimator = () => {
                                 : 'text-text-main dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
                             }`}
                     >
-                        Back
+                        {t('ceBack')}
                     </button>
 
                     {step < 3 && (
@@ -210,7 +212,7 @@ const CostEstimator = () => {
                                     : 'bg-primary hover:bg-secondary text-white'
                                 }`}
                         >
-                            Continue
+                            {t('ceContinue')}
                         </button>
                     )}
                 </div>
