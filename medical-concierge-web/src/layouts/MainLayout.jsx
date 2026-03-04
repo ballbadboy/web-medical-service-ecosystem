@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Outlet, Link, NavLink, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -10,6 +10,8 @@ const Layout = () => {
         }
         return false;
     });
+    const [isLangOpen, setIsLangOpen] = useState(false);
+    const langDropdownRef = useRef(null);
     const { language, setLanguage, t } = useLanguage();
     const navigate = useNavigate();
 
@@ -24,11 +26,21 @@ const Layout = () => {
         }
     }, [isDark]);
 
-    const toggleLanguage = () => {
-        if (language === 'en') setLanguage('th');
-        else if (language === 'th') setLanguage('cn');
-        else setLanguage('en');
-    };
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (langDropdownRef.current && !langDropdownRef.current.contains(e.target)) {
+                setIsLangOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    const languages = [
+        { code: 'en', label: 'English', flag: '🇬🇧' },
+        { code: 'th', label: 'ภาษาไทย', flag: '🇹🇭' },
+        { code: 'cn', label: '中文', flag: '🇨🇳' },
+    ];
 
     const navLinkClass = ({ isActive }) =>
         `text-sm font-medium transition-colors ${isActive
@@ -57,13 +69,38 @@ const Layout = () => {
 
                             <div className="h-4 w-px bg-slate-300 dark:bg-slate-700"></div>
 
-                            <button
-                                onClick={toggleLanguage}
-                                className="text-sm font-medium flex items-center gap-1 hover:text-primary dark:text-slate-300 dark:hover:text-primary transition-colors"
-                            >
-                                <span className="material-symbols-outlined !text-[18px]">language</span>
-                                {language.toUpperCase()}
-                            </button>
+                            {/* Language Dropdown */}
+                            <div className="relative" ref={langDropdownRef}>
+                                <button
+                                    onClick={() => setIsLangOpen(!isLangOpen)}
+                                    className="text-sm font-medium flex items-center gap-1.5 hover:text-primary dark:text-slate-300 dark:hover:text-primary transition-colors"
+                                >
+                                    <span className="material-symbols-outlined !text-[18px]">language</span>
+                                    {language.toUpperCase()}
+                                    <span className={`material-symbols-outlined !text-[16px] transition-transform duration-200 ${isLangOpen ? 'rotate-180' : ''}`}>expand_more</span>
+                                </button>
+                                {isLangOpen && (
+                                    <div className="absolute right-0 top-full mt-2 w-44 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden z-50">
+                                        {languages.map((lang) => (
+                                            <button
+                                                key={lang.code}
+                                                onClick={() => { setLanguage(lang.code); setIsLangOpen(false); }}
+                                                className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors text-left ${
+                                                    language === lang.code
+                                                        ? 'bg-primary/5 text-primary font-bold'
+                                                        : 'hover:bg-slate-50 dark:hover:bg-slate-700 text-text-main dark:text-slate-200'
+                                                }`}
+                                            >
+                                                <span className="text-base">{lang.flag}</span>
+                                                {lang.label}
+                                                {language === lang.code && (
+                                                    <span className="ml-auto material-symbols-outlined !text-[16px] text-primary">check</span>
+                                                )}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
 
                             {/* Dark Mode Toggle */}
                             <button
@@ -107,13 +144,26 @@ const Layout = () => {
                         <NavLink className="text-sm font-medium py-2.5 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-text-main dark:text-slate-200 hover:text-primary" to="/specialists" onClick={() => setIsMenuOpen(false)}>{t('specialists')}</NavLink>
                         <NavLink className="text-sm font-medium py-2.5 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-text-main dark:text-slate-200 hover:text-primary" to="/about" onClick={() => setIsMenuOpen(false)}>{t('about')}</NavLink>
                         <div className="border-t border-slate-200 dark:border-slate-700 my-2"></div>
-                        <button
-                            onClick={() => { toggleLanguage(); setIsMenuOpen(false); }}
-                            className="flex items-center gap-2 text-sm font-medium py-2.5 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-text-muted dark:text-slate-400 transition-colors"
-                        >
-                            <span className="material-symbols-outlined !text-[18px]">language</span>
-                            {t('langLabel')}: {language.toUpperCase()}
-                        </button>
+                        <p className="text-xs font-bold text-text-muted dark:text-slate-500 uppercase tracking-wider px-3 mb-1">
+                            <span className="material-symbols-outlined !text-[14px] align-middle mr-1">language</span>
+                            {t('langLabel')}
+                        </p>
+                        <div className="flex gap-2 px-1">
+                            {languages.map((lang) => (
+                                <button
+                                    key={lang.code}
+                                    onClick={() => { setLanguage(lang.code); setIsMenuOpen(false); }}
+                                    className={`flex-1 flex flex-col items-center gap-1 py-2.5 rounded-xl text-xs font-semibold transition-colors ${
+                                        language === lang.code
+                                            ? 'bg-primary/10 text-primary border border-primary/30'
+                                            : 'bg-slate-50 dark:bg-slate-800 text-text-muted dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700'
+                                    }`}
+                                >
+                                    <span className="text-xl">{lang.flag}</span>
+                                    <span>{lang.label}</span>
+                                </button>
+                            ))}
+                        </div>
                         <button
                             onClick={() => { navigate('/services'); setIsMenuOpen(false); }}
                             className="flex cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold mt-2">

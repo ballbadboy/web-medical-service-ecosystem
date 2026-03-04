@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // ── Avatars (no external URLs) ───────────────────────────────────────────────
 const AIAvatar = ({ className = 'w-10 h-10' }) => (
@@ -130,7 +131,7 @@ const makeInitialMessages = () => [
 ];
 
 // ── Emergency modal ──────────────────────────────────────────────────────────
-const EmergencyModal = ({ onClose }) => (
+const EmergencyModal = ({ onClose, t }) => (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={onClose}>
         <div className="bg-white dark:bg-surface-dark rounded-2xl shadow-2xl max-w-sm w-full p-6 border border-red-100 dark:border-red-900/30" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center gap-3 mb-4">
@@ -138,8 +139,8 @@ const EmergencyModal = ({ onClose }) => (
                     <span className="material-symbols-outlined text-[28px]">emergency</span>
                 </div>
                 <div>
-                    <h3 className="text-lg font-black text-red-600">Emergency Contacts</h3>
-                    <p className="text-xs text-text-secondary dark:text-slate-400">Available 24/7</p>
+                    <h3 className="text-lg font-black text-red-600">{t('aiEmergencyContacts')}</h3>
+                    <p className="text-xs text-text-secondary dark:text-slate-400">{t('aiEmergencyAvailable')}</p>
                 </div>
             </div>
             <div className="flex flex-col gap-3">
@@ -164,7 +165,7 @@ const EmergencyModal = ({ onClose }) => (
                 ))}
             </div>
             <button onClick={onClose} className="mt-4 w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-text-main dark:text-white font-semibold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-                Close
+                {t('aiClose')}
             </button>
         </div>
     </div>
@@ -183,10 +184,19 @@ const AiAssistant = () => {
         }
         return false;
     });
+    const [isLangOpen, setIsLangOpen] = useState(false);
+    const { language, setLanguage, t } = useLanguage();
     const chatEndRef = useRef(null);
     const fileInputRef = useRef(null);
     const textareaRef = useRef(null);
+    const langDropdownRef = useRef(null);
     const nextId = useRef(10);
+
+    const languages = [
+        { code: 'en', label: 'English', flag: '🇬🇧' },
+        { code: 'th', label: 'ภาษาไทย', flag: '🇹🇭' },
+        { code: 'cn', label: '中文', flag: '🇨🇳' },
+    ];
 
     useEffect(() => {
         const root = document.documentElement;
@@ -198,6 +208,16 @@ const AiAssistant = () => {
             localStorage.setItem('theme', 'light');
         }
     }, [isDark]);
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (langDropdownRef.current && !langDropdownRef.current.contains(e.target)) {
+                setIsLangOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     useEffect(() => {
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -299,7 +319,7 @@ const AiAssistant = () => {
             />
 
             {/* Emergency Modal */}
-            {showEmergency && <EmergencyModal onClose={() => setShowEmergency(false)} />}
+            {showEmergency && <EmergencyModal onClose={() => setShowEmergency(false)} t={t} />}
 
             {/* Sidebar Overlay (Mobile) */}
             {isSidebarOpen && (
@@ -317,7 +337,7 @@ const AiAssistant = () => {
                         </div>
                         <div>
                             <h1 className="text-base font-bold text-text-main dark:text-white leading-tight">Concierge Care</h1>
-                            <p className="text-xs text-text-secondary dark:text-slate-400">Premium Medical Assistance</p>
+                            <p className="text-xs text-text-secondary dark:text-slate-400">{t('aiBrandTagline')}</p>
                         </div>
                     </Link>
                     <button className="md:hidden w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" onClick={() => setIsSidebarOpen(false)}>
@@ -331,42 +351,42 @@ const AiAssistant = () => {
                         onClick={() => { setMessages(makeInitialMessages()); setInputVal(''); setIsSidebarOpen(false); }}
                         className="flex items-center gap-3 w-full px-4 py-3 bg-primary text-white rounded-xl hover:bg-secondary transition-colors shadow-sm">
                         <span className="material-symbols-outlined text-[20px]">add_circle</span>
-                        <span className="text-sm font-semibold">New Consultation</span>
+                        <span className="text-sm font-semibold">{t('aiNewConsult')}</span>
                     </button>
 
                     <div className="flex flex-col gap-0.5">
-                        <p className="px-4 text-xs font-semibold text-text-secondary dark:text-slate-500 uppercase tracking-wider mb-2">Menu</p>
+                        <p className="px-4 text-xs font-semibold text-text-secondary dark:text-slate-500 uppercase tracking-wider mb-2">{t('aiMenuLabel')}</p>
                         {[
-                            { icon: 'history', label: 'Recent Consultations' },
-                            { icon: 'account_circle', label: 'My Health Profile' },
-                            { icon: 'folder_open', label: 'Medical Records' },
-                            { icon: 'calculate', label: 'Cost Estimator', to: '/services' },
-                            { icon: 'group', label: 'View Specialists', to: '/specialists' },
+                            { icon: 'history', labelKey: 'aiRecentConsults' },
+                            { icon: 'account_circle', labelKey: 'aiHealthProfile' },
+                            { icon: 'folder_open', labelKey: 'aiMedRecords' },
+                            { icon: 'calculate', labelKey: 'ceTitle', to: '/services' },
+                            { icon: 'group', labelKey: 'aiViewSpecialists', to: '/specialists' },
                         ].map((item) =>
                             item.to ? (
-                                <Link key={item.label} to={item.to} className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-text-main dark:text-slate-200 hover:bg-background-light dark:hover:bg-slate-800 transition-colors group">
+                                <Link key={item.labelKey} to={item.to} className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-text-main dark:text-slate-200 hover:bg-background-light dark:hover:bg-slate-800 transition-colors group">
                                     <span className="material-symbols-outlined text-[22px] text-text-secondary dark:text-slate-400 group-hover:text-primary transition-colors">{item.icon}</span>
-                                    <span className="text-sm font-medium">{item.label}</span>
+                                    <span className="text-sm font-medium">{t(item.labelKey)}</span>
                                 </Link>
                             ) : (
-                                <button key={item.label} className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-text-main dark:text-slate-200 hover:bg-background-light dark:hover:bg-slate-800 transition-colors group w-full text-left">
+                                <button key={item.labelKey} className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-text-main dark:text-slate-200 hover:bg-background-light dark:hover:bg-slate-800 transition-colors group w-full text-left">
                                     <span className="material-symbols-outlined text-[22px] text-text-secondary dark:text-slate-400 group-hover:text-primary transition-colors">{item.icon}</span>
-                                    <span className="text-sm font-medium">{item.label}</span>
+                                    <span className="text-sm font-medium">{t(item.labelKey)}</span>
                                 </button>
                             )
                         )}
                     </div>
 
                     <div className="flex flex-col gap-1 mt-auto">
-                        <p className="px-4 text-xs font-semibold text-text-secondary dark:text-slate-500 uppercase tracking-wider mb-2">Recent History</p>
+                        <p className="px-4 text-xs font-semibold text-text-secondary dark:text-slate-500 uppercase tracking-wider mb-2">{t('aiRecentHistory')}</p>
                         <div className="px-4 py-2.5 border-l-2 border-primary bg-primary/5 dark:bg-primary/10 rounded-r-lg">
-                            <p className="text-sm font-semibold text-text-main dark:text-white truncate">Cardiac Second Opinion</p>
-                            <p className="text-xs text-text-secondary dark:text-slate-400">Today</p>
+                            <p className="text-sm font-semibold text-text-main dark:text-white truncate">{t('aiHistory1')}</p>
+                            <p className="text-xs text-text-secondary dark:text-slate-400">{t('aiToday')}</p>
                         </div>
-                        {['Dermatology Referral', 'Hip Replacement Inquiry'].map((label) => (
-                            <div key={label} className="px-4 py-2.5 border-l-2 border-transparent hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer rounded-r-lg transition-colors">
-                                <p className="text-sm font-medium text-text-main dark:text-white truncate">{label}</p>
-                                <p className="text-xs text-text-secondary dark:text-slate-400">Yesterday</p>
+                        {['aiHistory2', 'aiHistory3'].map((key) => (
+                            <div key={key} className="px-4 py-2.5 border-l-2 border-transparent hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer rounded-r-lg transition-colors">
+                                <p className="text-sm font-medium text-text-main dark:text-white truncate">{t(key)}</p>
+                                <p className="text-xs text-text-secondary dark:text-slate-400">{t('aiYesterday')}</p>
                             </div>
                         ))}
                     </div>
@@ -376,14 +396,14 @@ const AiAssistant = () => {
                 <div className="p-4 border-t border-border-light dark:border-border-dark flex flex-col gap-1">
                     <Link to="/" className="flex items-center gap-3 px-4 py-2 rounded-lg text-text-main dark:text-slate-200 hover:bg-background-light dark:hover:bg-slate-800 transition-colors">
                         <span className="material-symbols-outlined text-[22px] text-text-secondary">home</span>
-                        <span className="text-sm font-medium">Back to Home</span>
+                        <span className="text-sm font-medium">{t('aiBackHome')}</span>
                     </Link>
                     <button
                         onClick={() => setShowEmergency(true)}
                         className="flex items-center gap-3 px-4 py-2 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors w-full text-left"
                     >
                         <span className="material-symbols-outlined text-[22px]">emergency</span>
-                        <span className="text-sm font-medium">Emergency Contacts</span>
+                        <span className="text-sm font-medium">{t('aiEmergencyContacts')}</span>
                     </button>
                 </div>
             </aside>
@@ -402,10 +422,10 @@ const AiAssistant = () => {
                             <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-surface-light dark:border-surface-dark rounded-full"></span>
                         </div>
                         <div>
-                            <h2 className="text-base font-bold text-text-main dark:text-white leading-tight">Dr. AI Concierge</h2>
+                            <h2 className="text-base font-bold text-text-main dark:text-white leading-tight">{t('aiDrName')}</h2>
                             <p className="text-xs text-green-600 dark:text-green-400 font-medium flex items-center gap-1">
                                 <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block"></span>
-                                Online · Multilingual
+                                {t('aiOnlineStatus')}
                             </p>
                         </div>
                     </div>
@@ -417,15 +437,43 @@ const AiAssistant = () => {
                         >
                             <span className="material-symbols-outlined !text-[20px]">{isDark ? 'light_mode' : 'dark_mode'}</span>
                         </button>
-                        <button className="hidden sm:flex items-center justify-center h-9 px-3 gap-1.5 rounded-lg bg-background-light dark:bg-slate-800 border border-border-light dark:border-slate-700 text-sm font-medium text-text-main dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-                            <span className="material-symbols-outlined text-[18px]">translate</span>
-                            <span>EN / TH / CN</span>
-                        </button>
+                        {/* Language Dropdown */}
+                        <div className="relative hidden sm:block" ref={langDropdownRef}>
+                            <button
+                                onClick={() => setIsLangOpen(!isLangOpen)}
+                                className="flex items-center justify-center h-9 px-3 gap-1.5 rounded-lg bg-background-light dark:bg-slate-800 border border-border-light dark:border-slate-700 text-sm font-medium text-text-main dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                            >
+                                <span className="material-symbols-outlined text-[18px]">translate</span>
+                                <span>{language.toUpperCase()}</span>
+                                <span className={`material-symbols-outlined text-[16px] transition-transform duration-200 ${isLangOpen ? 'rotate-180' : ''}`}>expand_more</span>
+                            </button>
+                            {isLangOpen && (
+                                <div className="absolute right-0 top-full mt-2 w-44 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden z-50">
+                                    {languages.map((lang) => (
+                                        <button
+                                            key={lang.code}
+                                            onClick={() => { setLanguage(lang.code); setIsLangOpen(false); }}
+                                            className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors text-left ${
+                                                language === lang.code
+                                                    ? 'bg-primary/5 text-primary font-bold'
+                                                    : 'hover:bg-slate-50 dark:hover:bg-slate-700 text-text-main dark:text-slate-200'
+                                            }`}
+                                        >
+                                            <span className="text-base">{lang.flag}</span>
+                                            {lang.label}
+                                            {language === lang.code && (
+                                                <span className="ml-auto material-symbols-outlined !text-[16px] text-primary">check</span>
+                                            )}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                         <button
                             onClick={() => setShowEmergency(true)}
                             className="flex items-center justify-center h-9 px-4 rounded-lg bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 text-red-600 dark:text-red-400 text-sm font-bold border border-red-200 dark:border-red-900/40 transition-colors"
                         >
-                            🚨 Emergency
+                            🚨 {t('aiEmergencyBtn')}
                         </button>
                     </div>
                 </header>
@@ -446,7 +494,7 @@ const AiAssistant = () => {
                             <div className={`flex flex-col gap-1.5 ${msg.type === 'user' ? 'items-end' : 'items-start'}`}>
                                 <div className={`flex items-baseline gap-2 ${msg.type === 'user' ? 'flex-row-reverse' : ''}`}>
                                     <span className="text-xs font-bold text-text-main dark:text-white">
-                                        {msg.type === 'ai' ? 'Dr. AI Concierge' : 'You'}
+                                        {msg.type === 'ai' ? t('aiDrName') : t('aiYou')}
                                     </span>
                                     <span className="text-[10px] text-text-secondary dark:text-slate-500">{msg.time}</span>
                                 </div>
@@ -510,7 +558,7 @@ const AiAssistant = () => {
                                 onKeyDown={handleKeyDown}
                                 rows={1}
                                 className="w-full bg-transparent border-none focus:ring-0 py-2 px-1 resize-none text-text-main dark:text-white placeholder-text-secondary dark:placeholder-slate-500 text-sm self-end"
-                                placeholder="Describe your medical needs or ask a question…"
+                                placeholder={t('aiTypePlaceholder')}
                                 style={{ minHeight: '40px', maxHeight: '128px' }}
                             />
 
@@ -530,10 +578,10 @@ const AiAssistant = () => {
                         <div className="flex justify-between items-center px-1">
                             <p className="text-[10px] text-text-secondary dark:text-slate-500 flex items-center gap-1">
                                 <span className="material-symbols-outlined text-[12px]">lock</span>
-                                End-to-end encrypted · HIPAA compliant
+                                {t('aiEncryptedNote')}
                             </p>
                             <p className="text-[10px] text-text-secondary dark:text-slate-500">
-                                AI may make mistakes — verify critical medical info with specialists.
+                                {t('aiDisclaimerNote')}
                             </p>
                         </div>
                     </div>
