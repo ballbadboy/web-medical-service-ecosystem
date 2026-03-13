@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import SeoHead from '../components/SeoHead';
+import BookingModal from '../components/BookingModal';
 
 const specialistsData = [
     {
@@ -106,6 +108,8 @@ const Specialists = () => {
     const [search, setSearch] = useState('');
     const [activeFilter, setActiveFilter] = useState('All Specialties');
     const [availableOnly, setAvailableOnly] = useState(false);
+    const [bookingOpen, setBookingOpen] = useState(false);
+    const [bookingSpecialist, setBookingSpecialist] = useState('');
 
     const filtered = specialistsData.filter((doc) => {
         const matchSearch =
@@ -119,6 +123,10 @@ const Specialists = () => {
 
     return (
         <>
+            <SeoHead
+                title="Find Specialist Doctors in Thailand"
+                description="Browse 50+ board-certified specialist doctors across cardiology, orthopedics, oncology, dental, and more. Filter by specialty, language, and availability at JCI-accredited hospitals in Bangkok."
+            />
             {/* Hero */}
             <div className="bg-white dark:bg-surface-dark border-b border-slate-100 dark:border-slate-800">
                 <div className="mx-auto max-w-7xl px-4 md:px-10 py-14 md:py-20">
@@ -256,7 +264,9 @@ const Specialists = () => {
 
                                     {/* Actions */}
                                     <div className="flex gap-3 mt-auto pt-2">
-                                        <button className={`flex-1 h-10 rounded-lg text-sm font-bold transition-colors ${doc.available
+                                        <button
+                                            onClick={() => { setBookingSpecialist(doc.name); setBookingOpen(true); }}
+                                            className={`flex-1 h-10 rounded-lg text-sm font-bold transition-colors ${doc.available
                                             ? 'bg-primary hover:bg-secondary text-white shadow-md shadow-primary/20'
                                             : 'bg-amber-50 hover:bg-amber-100 dark:bg-amber-900/20 dark:hover:bg-amber-900/30 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800'
                                             }`}>
@@ -284,6 +294,12 @@ const Specialists = () => {
                     </Link>
                 </div>
             </div>
+
+            <BookingModal
+                isOpen={bookingOpen}
+                onClose={() => setBookingOpen(false)}
+                prefillSpecialist={bookingSpecialist}
+            />
         </>
     );
 };

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e5baf;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2b7cee;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#d4af37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f0d060;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="1050" cy="100" r="200" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="40"/>
+  <circle cx="1050" cy="100" r="100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="30"/>
+  <circle cx="150" cy="530" r="150" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="30"/>
+
+  <!-- Medical cross icon -->
+  <g transform="translate(80, 80)">
+    <rect x="16" y="0" width="16" height="48" rx="4" fill="rgba(255,255,255,0.9)"/>
+    <rect x="0" y="16" width="48" height="16" rx="4" fill="rgba(255,255,255,0.9)"/>
+  </g>
+
+  <!-- Brand name -->
+  <text x="80" y="178" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="700" fill="rgba(255,255,255,0.9)" letter-spacing="2">BIO CONNEXT</text>
+
+  <!-- Main title -->
+  <text x="80" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="800" fill="white">Premium Medical</text>
+  <text x="80" y="355" font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="800" fill="white">Tourism in Thailand</text>
+
+  <!-- Gold accent line -->
+  <rect x="80" y="385" width="120" height="5" rx="2" fill="url(#accent)"/>
+
+  <!-- Subtitle -->
+  <text x="80" y="440" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="rgba(255,255,255,0.85)">JCI-Accredited Hospitals  |  50+ Specialist Doctors</text>
+  <text x="80" y="475" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="rgba(255,255,255,0.85)">10,000+ Patients from 45+ Countries</text>
+
+  <!-- Stats badges -->
+  <g transform="translate(80, 520)">
+    <rect x="0" y="0" width="140" height="44" rx="22" fill="rgba(255,255,255,0.15)"/>
+    <text x="70" y="28" font-family="system-ui, sans-serif" font-size="16" font-weight="600" fill="white" text-anchor="middle">4.9/5 Rating</text>
+
+    <rect x="160" y="0" width="180" height="44" rx="22" fill="rgba(255,255,255,0.15)"/>
+    <text x="250" y="28" font-family="system-ui, sans-serif" font-size="16" font-weight="600" fill="white" text-anchor="middle">24/7 Multilingual</text>
+
+    <rect x="360" y="0" width="180" height="44" rx="22" fill="rgba(212,175,55,0.3)"/>
+    <text x="450" y="28" font-family="system-ui, sans-serif" font-size="16" font-weight="600" fill="#f0d060" text-anchor="middle">Save 40-70%</text>
+  </g>
+
+  <!-- Website URL -->
+  <text x="1120" y="595" font-family="system-ui, sans-serif" font-size="18" fill="rgba(255,255,255,0.5)" text-anchor="end">bio.techdev.in.th</text>
+</svg>

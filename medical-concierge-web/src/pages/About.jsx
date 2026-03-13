@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import SeoHead from '../components/SeoHead';
 
 const team = [
     { name: 'Dr. Sakchai Lertpanit', role: 'Founder & Chief Medical Officer', initials: 'SL', color: 'from-primary to-blue-400' },
@@ -28,6 +29,10 @@ const About = () => {
 
     return (
         <>
+            <SeoHead
+                title="About Us — Our Story & Mission"
+                description="Founded in 2015 in Bangkok, Bio Connext has served 10,000+ patients from 45+ countries. JCI-accredited, ISO 9001:2015 certified. Meet our leadership team and learn our mission."
+            />
             {/* Hero */}
             <div className="bg-white dark:bg-surface-dark border-b border-slate-100 dark:border-slate-800">
                 <div className="mx-auto max-w-7xl px-4 md:px-10 py-16 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">

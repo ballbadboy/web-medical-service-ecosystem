@@ -1,0 +1,17 @@
+{
+  "basePrices": {
+    "orthopedic": { "price": 15000, "min": 12000, "max": 20000, "label": "Orthopedic Surgery", "icon": "bone" },
+    "cardiac": { "price": 25000, "min": 20000, "max": 35000, "label": "Cardiac Procedures", "icon": "ecg_heart" },
+    "cosmetic": { "price": 8000, "min": 5000, "max": 15000, "label": "Cosmetic Surgery", "icon": "face" },
+    "dental": { "price": 3000, "min": 800, "max": 12000, "label": "Dental Procedures", "icon": "dentistry" },
+    "stemcell": { "price": 12000, "min": 10000, "max": 18000, "label": "Stem Cell Therapy", "icon": "science" },
+    "other": { "price": 5000, "min": 2000, "max": 10000, "label": "Other Medical Services", "icon": "medical_services" }
+  },
+  "addons": {
+    "transport": { "price": 500, "label": "VIP Airport & Local Transport", "description": "Private sedan from Suvarnabhumi Airport, dedicated patient escort, and all local hospital transfers" },
+    "postSurgeryCare": { "price": 2000, "label": "Post-Surgery Nursing Care", "description": "1 week of dedicated nursing care including daily check-ups, medication management, and recovery monitoring" },
+    "languageSupport": { "price": 300, "label": "Dedicated Language Interpreter", "description": "Professional medical interpreter for all consultations, hospital visits, and document translation" }
+  },
+  "currency": "USD",
+  "lastUpdated": "2026-03-01"
+}

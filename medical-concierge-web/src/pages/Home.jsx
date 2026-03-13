@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import SeoHead from '../components/SeoHead';
 
 const Home = () => {
     const { t } = useLanguage();
     const navigate = useNavigate();
+    const [openFaq, setOpenFaq] = useState(null);
+
+    const faqData = [
+        { q: t('faq1Q'), a: t('faq1A') },
+        { q: t('faq2Q'), a: t('faq2A') },
+        { q: t('faq3Q'), a: t('faq3A') },
+        { q: t('faq4Q'), a: t('faq4A') },
+        { q: t('faq5Q'), a: t('faq5A') },
+    ];
 
     return (
         <>
+            <SeoHead
+                title="Premium Medical Tourism in Thailand"
+                description="Thailand's premier medical concierge service. JCI-accredited hospitals, 50+ specialist doctors, VIP transport, medical interpretation. Serving 10,000+ patients from 45+ countries."
+            />
             {/* Hero Section */}
             <div className="relative">
                 <div className="mx-auto max-w-7xl px-4 md:px-10 py-6 md:py-10">
@@ -204,6 +218,53 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+
+            {/* FAQ Section — High AI Citability */}
+            <section className="py-16 md:py-24 bg-background-light dark:bg-background-dark" aria-labelledby="faq-heading">
+                <div className="mx-auto max-w-3xl px-4 md:px-10">
+                    <div className="text-center mb-12">
+                        <h3 className="text-primary font-bold tracking-wider uppercase text-sm mb-2">FAQ</h3>
+                        <h2 id="faq-heading" className="text-3xl md:text-4xl font-bold text-text-main dark:text-white leading-tight">
+                            {t('faqTitle')}
+                        </h2>
+                        <p className="text-text-muted dark:text-slate-400 text-lg mt-4">
+                            {t('faqSubtitle')}
+                        </p>
+                    </div>
+                    <div className="space-y-3" itemScope itemType="https://schema.org/FAQPage">
+                        {faqData.map((faq, i) => (
+                            <div
+                                key={i}
+                                className="border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-surface-dark overflow-hidden transition-shadow hover:shadow-md"
+                                itemScope
+                                itemProp="mainEntity"
+                                itemType="https://schema.org/Question"
+                            >
+                                <button
+                                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                                    className="w-full flex items-center justify-between px-6 py-5 text-left"
+                                    aria-expanded={openFaq === i}
+                                >
+                                    <span className="font-bold text-text-main dark:text-white pr-4" itemProp="name">{faq.q}</span>
+                                    <span className={`material-symbols-outlined text-primary shrink-0 transition-transform duration-200 ${openFaq === i ? 'rotate-180' : ''}`}>
+                                        expand_more
+                                    </span>
+                                </button>
+                                <div
+                                    className={`overflow-hidden transition-all duration-300 ${openFaq === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+                                    itemScope
+                                    itemProp="acceptedAnswer"
+                                    itemType="https://schema.org/Answer"
+                                >
+                                    <p className="px-6 pb-5 text-text-muted dark:text-slate-400 leading-relaxed" itemProp="text">
+                                        {faq.a}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
             {/* CTA Section */}
             <div className="py-20 bg-primary relative overflow-hidden">

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useTheme } from '../contexts/ThemeContext';
+import SeoHead from '../components/SeoHead';
 
 // ── Avatars (no external URLs) ───────────────────────────────────────────────
 const AIAvatar = ({ className = 'w-10 h-10' }) => (
@@ -93,7 +95,7 @@ function getAiResponse(userText) {
 }
 
 // ── Initial conversation ─────────────────────────────────────────────────────
-const makeInitialMessages = () => [
+const makeInitialMessages = (t) => [
     {
         id: 1,
         type: 'ai',
@@ -101,19 +103,19 @@ const makeInitialMessages = () => [
         text: null,
         jsx: (
             <>
-                <p>Hello! Sawasdee krub! Ni hao! 👋</p>
-                <p className="mt-2">I am your personal medical concierge. How can I assist with your health journey today?</p>
-                <p className="mt-2 text-slate-400 dark:text-slate-400 text-xs">I can help with:</p>
+                <p>{t('aiGreeting')} 👋</p>
+                <p className="mt-2">{t('aiWelcomeMsg')}</p>
+                <p className="mt-2 text-slate-400 dark:text-slate-400 text-xs">{t('aiHelpIntro')}</p>
                 <ul className="list-disc ml-5 mt-1 space-y-0.5 text-slate-400 dark:text-slate-400 text-xs">
-                    <li>Booking specialist appointments</li>
-                    <li>Arranging VIP airport transport</li>
-                    <li>Processing &amp; translating medical records</li>
-                    <li>Requesting second opinions</li>
-                    <li>Cost estimates &amp; concierge packages</li>
+                    <li>{t('aiHelpItem1')}</li>
+                    <li>{t('aiHelpItem2')}</li>
+                    <li>{t('aiHelpItem3')}</li>
+                    <li>{t('aiHelpItem4')}</li>
+                    <li>{t('aiHelpItem5')}</li>
                 </ul>
             </>
         ),
-        suggestions: ['📅 Book Appointment', '🩺 Second Opinion', '🚕 Airport Transport', '📂 Upload Records', '💰 Cost Estimate'],
+        suggestions: [`📅 ${t('aiSuggestion1')}`, `🩺 ${t('aiSuggestion2')}`, `🚕 ${t('aiSuggestion3')}`, `📂 ${t('aiSuggestion4')}`, '💰 Cost Estimate'],
     },
     {
         id: 2,
@@ -139,8 +141,8 @@ const EmergencyModal = ({ onClose, t }) => (
                     <span className="material-symbols-outlined text-[28px]">emergency</span>
                 </div>
                 <div>
-                    <h3 className="text-lg font-black text-red-600">{t('aiEmergencyContacts')}</h3>
-                    <p className="text-xs text-text-secondary dark:text-slate-400">{t('aiEmergencyAvailable')}</p>
+                    <h3 className="text-lg font-black text-red-600">{t('aiEmergencyTitle')}</h3>
+                    <p className="text-xs text-text-secondary dark:text-slate-400">{t('aiEmergencyDesc')}</p>
                 </div>
             </div>
             <div className="flex flex-col gap-3">
@@ -173,19 +175,14 @@ const EmergencyModal = ({ onClose, t }) => (
 
 // ── Main Component ────────────────────────────────────────────────────────────
 const AiAssistant = () => {
-    const [messages, setMessages] = useState(makeInitialMessages);
+    const { isDark, toggleTheme } = useTheme();
+    const [isLangOpen, setIsLangOpen] = useState(false);
+    const { language, setLanguage, t } = useLanguage();
+    const [messages, setMessages] = useState(() => makeInitialMessages(t));
     const [inputVal, setInputVal] = useState('');
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isTyping, setIsTyping] = useState(false);
     const [showEmergency, setShowEmergency] = useState(false);
-    const [isDark, setIsDark] = useState(() => {
-        if (typeof window !== 'undefined') {
-            return localStorage.getItem('theme') === 'dark';
-        }
-        return false;
-    });
-    const [isLangOpen, setIsLangOpen] = useState(false);
-    const { language, setLanguage, t } = useLanguage();
     const chatEndRef = useRef(null);
     const fileInputRef = useRef(null);
     const textareaRef = useRef(null);
@@ -197,17 +194,6 @@ const AiAssistant = () => {
         { code: 'th', label: 'ภาษาไทย', flag: '🇹🇭' },
         { code: 'cn', label: '中文', flag: '🇨🇳' },
     ];
-
-    useEffect(() => {
-        const root = document.documentElement;
-        if (isDark) {
-            root.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            root.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        }
-    }, [isDark]);
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -222,6 +208,11 @@ const AiAssistant = () => {
     useEffect(() => {
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages, isTyping]);
+
+    // Reset initial messages when language changes
+    useEffect(() => {
+        setMessages(makeInitialMessages(t));
+    }, [language]);
 
     const addMessage = (msg) => {
         const id = nextId.current++;
@@ -307,7 +298,11 @@ const AiAssistant = () => {
     };
 
     return (
-        <div className="flex h-screen w-full bg-background-light dark:bg-background-dark font-display text-text-main dark:text-white overflow-hidden">
+        <div className="flex h-[100dvh] w-full bg-background-light dark:bg-background-dark font-display text-text-main dark:text-white overflow-hidden">
+            <SeoHead
+                title="AI Medical Assistant — 24/7 Health Concierge"
+                description="Get instant answers about medical procedures, costs, specialist availability, transport, and visa assistance. Our AI concierge helps plan your medical journey to Thailand."
+            />
 
             {/* Hidden file input */}
             <input
@@ -336,7 +331,7 @@ const AiAssistant = () => {
                             <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>medical_services</span>
                         </div>
                         <div>
-                            <h1 className="text-base font-bold text-text-main dark:text-white leading-tight">Concierge Care</h1>
+                            <h1 className="text-base font-bold text-text-main dark:text-white leading-tight">Bio Connext</h1>
                             <p className="text-xs text-text-secondary dark:text-slate-400">{t('aiBrandTagline')}</p>
                         </div>
                     </Link>
@@ -348,7 +343,7 @@ const AiAssistant = () => {
                 {/* Sidebar Nav */}
                 <nav className="flex-1 overflow-y-auto px-4 py-5 flex flex-col gap-5">
                     <button
-                        onClick={() => { setMessages(makeInitialMessages()); setInputVal(''); setIsSidebarOpen(false); }}
+                        onClick={() => { setMessages(makeInitialMessages(t)); setInputVal(''); setIsSidebarOpen(false); }}
                         className="flex items-center gap-3 w-full px-4 py-3 bg-primary text-white rounded-xl hover:bg-secondary transition-colors shadow-sm">
                         <span className="material-symbols-outlined text-[20px]">add_circle</span>
                         <span className="text-sm font-semibold">{t('aiNewConsult')}</span>
@@ -431,7 +426,7 @@ const AiAssistant = () => {
                     </div>
                     <div className="flex items-center gap-2">
                         <button
-                            onClick={() => setIsDark(!isDark)}
+                            onClick={toggleTheme}
                             className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-text-muted dark:text-slate-400"
                             title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
                         >

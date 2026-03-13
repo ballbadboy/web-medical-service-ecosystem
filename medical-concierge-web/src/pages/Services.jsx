@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import CostEstimator from '../components/CostEstimator';
+import SeoHead from '../components/SeoHead';
 
 const Services = () => {
     const navigate = useNavigate();
@@ -9,6 +10,10 @@ const Services = () => {
 
     return (
         <>
+            <SeoHead
+                title="Medical Services & Cost Estimator"
+                description="Explore our medical concierge services: specialist coordination, second opinions, advanced therapies, post-surgery nursing, VIP logistics, and 24/7 support. Get instant cost estimates for procedures in Thailand."
+            />
             {/* Hero Section */}
             <div className="layout-container flex flex-col items-center justify-center px-4 py-16 sm:px-10 lg:px-40 bg-white dark:bg-surface-dark">
                 <div className="layout-content-container flex max-w-[960px] flex-col gap-6 text-center">
@@ -52,9 +57,9 @@ const Services = () => {
                                 <p className="text-text-muted dark:text-slate-400 text-sm leading-relaxed">{t('s1Desc')}</p>
                             </div>
                             <div className="mt-auto pt-4">
-                                <a className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all" href="#">
+                                <button onClick={() => navigate('/ai-assistant')} className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all">
                                     {t('learnMore')} <span className="material-symbols-outlined text-base ml-1">arrow_forward</span>
-                                </a>
+                                </button>
                             </div>
                         </div>
 
@@ -68,9 +73,9 @@ const Services = () => {
                                 <p className="text-text-muted dark:text-slate-400 text-sm leading-relaxed">{t('s2Desc')}</p>
                             </div>
                             <div className="mt-auto pt-4">
-                                <a className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all" href="#">
+                                <button onClick={() => navigate('/ai-assistant')} className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all">
                                     {t('learnMore')} <span className="material-symbols-outlined text-base ml-1">arrow_forward</span>
-                                </a>
+                                </button>
                             </div>
                         </div>
 
@@ -84,9 +89,9 @@ const Services = () => {
                                 <p className="text-text-muted dark:text-slate-400 text-sm leading-relaxed">{t('s3Desc')}</p>
                             </div>
                             <div className="mt-auto pt-4">
-                                <a className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all" href="#">
+                                <button onClick={() => navigate('/ai-assistant')} className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all">
                                     {t('learnMore')} <span className="material-symbols-outlined text-base ml-1">arrow_forward</span>
-                                </a>
+                                </button>
                             </div>
                         </div>
 
@@ -100,9 +105,9 @@ const Services = () => {
                                 <p className="text-text-muted dark:text-slate-400 text-sm leading-relaxed">{t('s4Desc')}</p>
                             </div>
                             <div className="mt-auto pt-4">
-                                <a className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all" href="#">
+                                <button onClick={() => navigate('/ai-assistant')} className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all">
                                     {t('learnMore')} <span className="material-symbols-outlined text-base ml-1">arrow_forward</span>
-                                </a>
+                                </button>
                             </div>
                         </div>
 
@@ -116,9 +121,9 @@ const Services = () => {
                                 <p className="text-text-muted dark:text-slate-400 text-sm leading-relaxed">{t('s5Desc')}</p>
                             </div>
                             <div className="mt-auto pt-4">
-                                <a className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all" href="#">
+                                <button onClick={() => navigate('/ai-assistant')} className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all">
                                     {t('learnMore')} <span className="material-symbols-outlined text-base ml-1">arrow_forward</span>
-                                </a>
+                                </button>
                             </div>
                         </div>
 
@@ -132,9 +137,9 @@ const Services = () => {
                                 <p className="text-text-muted dark:text-slate-400 text-sm leading-relaxed">{t('s6Desc')}</p>
                             </div>
                             <div className="mt-auto pt-4">
-                                <a className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all" href="#">
+                                <button onClick={() => navigate('/ai-assistant')} className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all">
                                     {t('learnMore')} <span className="material-symbols-outlined text-base ml-1">arrow_forward</span>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>

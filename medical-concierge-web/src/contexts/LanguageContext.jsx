@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
 const translations = {
     en: {
@@ -132,7 +132,7 @@ const translations = {
         ourStory: 'Our Story',
         aboutTitle1: 'Redefining',
         aboutTitle2: 'Medical Tourism',
-        aboutDesc1: 'Founded in Bangkok in 2015, Concierge Care was born from a simple belief: every patient deserves world-class healthcare without the complexity, confusion, or cost barriers that so often stand in the way.',
+        aboutDesc1: 'Founded in Bangkok in 2015, Bio Connext was born from a simple belief: every patient deserves world-class healthcare without the complexity, confusion, or cost barriers that so often stand in the way.',
         aboutDesc2: 'We bridged the gap between internationally-trained specialists and patients around the world who need them — with a commitment to luxury, transparency, and genuine human care.',
         estYear: 'Est. 2015',
         estCity: 'Bangkok, Thailand',
@@ -157,7 +157,7 @@ const translations = {
         leadershipTeam: 'Our Leadership Team',
         partnersLabel: 'Our Partners & Accreditations',
         aboutCtaTitle: 'Ready to Start Your Journey?',
-        aboutCtaDesc: 'Join thousands of patients who trusted Concierge Care to navigate their most important health decisions.',
+        aboutCtaDesc: 'Join thousands of patients who trusted Bio Connext to navigate their most important health decisions.',
         meetSpecialists: 'Meet Our Specialists',
 
         // AI Assistant page
@@ -186,6 +186,40 @@ const translations = {
         aiHistory2: 'Dermatology Referral',
         aiHistory3: 'Hip Replacement Inquiry',
 
+        // FAQ Section
+        faqTitle: 'Frequently Asked Questions',
+        faqSubtitle: 'Everything you need to know about medical tourism in Thailand',
+        faq1Q: 'What is medical tourism in Thailand?',
+        faq1A: 'Medical tourism in Thailand involves international patients traveling to Thailand for healthcare services. Thailand is a global leader in medical tourism, offering JCI-accredited hospitals, board-certified specialists, and costs 40–70% lower than Western countries. Bio Connext coordinates the entire journey from specialist matching to post-treatment recovery.',
+        faq2Q: 'How much does medical treatment cost in Thailand compared to the US?',
+        faq2A: 'Medical procedures in Thailand typically cost 40–70% less than in the United States. For example, cardiac surgery may cost $15,000–$25,000 in Thailand versus $70,000–$150,000 in the US. Orthopedic procedures, dental work, and cosmetic surgery offer similar savings — all at JCI-accredited facilities with internationally trained surgeons.',
+        faq3Q: 'What services does Bio Connext provide?',
+        faq3A: 'Bio Connext provides end-to-end medical concierge services including: specialist doctor matching from 50+ partners, second medical opinions, airport meet-and-greet, VIP medical transport, medical interpretation in 10+ languages, insurance liaison, post-surgery nursing care, accommodation arrangements, and 24/7 multilingual concierge support.',
+        faq4Q: 'Are hospitals in Thailand internationally accredited?',
+        faq4A: 'Yes, Thailand has over 60 JCI (Joint Commission International) accredited hospitals — more than any other country in Asia. Bio Connext partners exclusively with JCI-accredited, ISO 9001:2015 certified, and TEMOS-certified facilities to ensure the highest standards of patient safety and quality.',
+        faq5Q: 'What languages are supported for medical interpretation?',
+        faq5A: 'Bio Connext provides professional medical interpretation in over 10 languages including English, Thai, Mandarin Chinese, Japanese, Arabic, Russian, German, French, Korean, and Spanish. Medical interpreters are certified and experienced in healthcare terminology.',
+
+        // AI Assistant – greeting & suggestions
+        aiGreeting: 'Hello! Sawasdee krub! Ni hao!',
+        aiWelcomeMsg: 'I am your personal medical concierge. How can I assist with your health journey today?',
+        aiHelpIntro: 'I can help with:',
+        aiHelpItem1: 'Booking specialist appointments',
+        aiHelpItem2: 'Arranging VIP airport transport',
+        aiHelpItem3: 'Processing & translating medical records',
+        aiHelpItem4: 'Requesting second opinions',
+        aiHelpItem5: 'Cost estimates & concierge packages',
+        aiSuggestion1: 'Book Appointment',
+        aiSuggestion2: 'Second Opinion',
+        aiSuggestion3: 'Airport Transport',
+        aiSuggestion4: 'Upload Records',
+        aiSidebarConsults: 'Recent Consultations',
+        aiSidebarProfile: 'My Health Profile',
+        aiSidebarRecords: 'Medical Records',
+        aiSidebarEmergency: 'Emergency Contacts',
+        aiEmergencyTitle: 'Emergency Contacts',
+        aiEmergencyDesc: 'Available 24/7',
+
         // Footer
         footerDesc: 'Your trusted partner in international medical tourism and premium healthcare management.',
         footerServices: 'Services',
@@ -193,7 +227,7 @@ const translations = {
         footerAiConcierge: 'AI Concierge',
         footerPrivacy: 'Privacy Policy',
         footerTerms: 'Terms of Service',
-        footerCopyright: '© 2025 Concierge Care. All rights reserved.',
+        footerCopyright: '© 2025 Bio Connext. All rights reserved.',
     },
 
     th: {
@@ -327,7 +361,7 @@ const translations = {
         ourStory: 'เรื่องราวของเรา',
         aboutTitle1: 'นิยามใหม่ให้กับ',
         aboutTitle2: 'การท่องเที่ยวเชิงสุขภาพ',
-        aboutDesc1: 'ก่อตั้งที่กรุงเทพฯ เมื่อปี 2558 Concierge Care เกิดจากความเชื่อที่เรียบง่าย: ผู้ป่วยทุกคนควรได้รับการดูแลสุขภาพระดับโลก โดยไม่ต้องเผชิญกับความยุ่งยาก ความสับสน หรือค่าใช้จ่ายที่เป็นอุปสรรค',
+        aboutDesc1: 'ก่อตั้งที่กรุงเทพฯ เมื่อปี 2558 Bio Connext เกิดจากความเชื่อที่เรียบง่าย: ผู้ป่วยทุกคนควรได้รับการดูแลสุขภาพระดับโลก โดยไม่ต้องเผชิญกับความยุ่งยาก ความสับสน หรือค่าใช้จ่ายที่เป็นอุปสรรค',
         aboutDesc2: 'เราเชื่อมผู้ป่วยทั่วโลกเข้ากับแพทย์ผู้เชี่ยวชาญระดับนานาชาติ ด้วยความมุ่งมั่นในความหรูหรา ความโปร่งใส และการดูแลที่แท้จริง',
         estYear: 'ก่อตั้งปี 2558',
         estCity: 'กรุงเทพฯ ประเทศไทย',
@@ -352,8 +386,42 @@ const translations = {
         leadershipTeam: 'ทีมผู้บริหาร',
         partnersLabel: 'พันธมิตรและการรับรองของเรา',
         aboutCtaTitle: 'พร้อมเริ่มต้นแล้วหรือยัง?',
-        aboutCtaDesc: 'ร่วมกับผู้ป่วยหลายพันรายที่ไว้ใจให้ Concierge Care ดูแลการตัดสินใจด้านสุขภาพที่สำคัญที่สุดของพวกเขา',
+        aboutCtaDesc: 'ร่วมกับผู้ป่วยหลายพันรายที่ไว้ใจให้ Bio Connext ดูแลการตัดสินใจด้านสุขภาพที่สำคัญที่สุดของพวกเขา',
         meetSpecialists: 'พบกับแพทย์ผู้เชี่ยวชาญ',
+
+        // FAQ Section
+        faqTitle: 'คำถามที่พบบ่อย',
+        faqSubtitle: 'ทุกสิ่งที่คุณต้องรู้เกี่ยวกับการท่องเที่ยวเชิงสุขภาพในประเทศไทย',
+        faq1Q: 'การท่องเที่ยวเชิงสุขภาพในประเทศไทยคืออะไร?',
+        faq1A: 'การท่องเที่ยวเชิงสุขภาพในประเทศไทยคือการที่ผู้ป่วยต่างชาติเดินทางมารับบริการทางการแพทย์ในประเทศไทย ประเทศไทยเป็นผู้นำระดับโลกด้านการท่องเที่ยวเชิงสุขภาพ มีโรงพยาบาลที่ได้รับการรับรอง JCI แพทย์ผู้เชี่ยวชาญที่ได้รับใบรับรอง และค่าใช้จ่ายต่ำกว่าประเทศตะวันตก 40–70% Bio Connext ดูแลทุกขั้นตอนตั้งแต่การจับคู่แพทย์จนถึงการพักฟื้นหลังการรักษา',
+        faq2Q: 'ค่ารักษาพยาบาลในไทยเทียบกับสหรัฐฯ ต่างกันเท่าไหร่?',
+        faq2A: 'การรักษาพยาบาลในประเทศไทยมีค่าใช้จ่ายต่ำกว่าสหรัฐอเมริกา 40–70% เช่น การผ่าตัดหัวใจอาจอยู่ที่ $15,000–$25,000 ในไทย เทียบกับ $70,000–$150,000 ในสหรัฐฯ ศัลยกรรมกระดูก ทันตกรรม และศัลยกรรมความงามก็ประหยัดได้ในระดับเดียวกัน ทั้งหมดในสถานพยาบาลที่ได้รับการรับรอง JCI กับศัลยแพทย์ที่ได้รับการฝึกฝนจากต่างประเทศ',
+        faq3Q: 'Bio Connext ให้บริการอะไรบ้าง?',
+        faq3A: 'Bio Connext ให้บริการดูแลครบวงจร ได้แก่ จับคู่แพทย์ผู้เชี่ยวชาญจากพันธมิตรกว่า 50 ราย ขอ Second Opinion รับที่สนามบิน รถรับส่ง VIP ล่ามทางการแพทย์กว่า 10 ภาษา ประสานงานประกัน พยาบาลดูแลหลังผ่าตัด จัดหาที่พัก และบริการดูแลตลอด 24 ชั่วโมงทุกภาษา',
+        faq4Q: 'โรงพยาบาลในไทยได้รับการรับรองมาตรฐานสากลหรือไม่?',
+        faq4A: 'ได้ครับ ประเทศไทยมีโรงพยาบาลที่ได้รับการรับรอง JCI (Joint Commission International) กว่า 60 แห่ง มากที่สุดในเอเชีย Bio Connext ร่วมงานเฉพาะกับสถานพยาบาลที่ได้รับการรับรอง JCI, ISO 9001:2015 และ TEMOS เพื่อให้มั่นใจในมาตรฐานความปลอดภัยและคุณภาพสูงสุด',
+        faq5Q: 'รองรับล่ามทางการแพทย์กี่ภาษา?',
+        faq5A: 'Bio Connext ให้บริการล่ามทางการแพทย์มืออาชีพกว่า 10 ภาษา ได้แก่ อังกฤษ ไทย จีนกลาง ญี่ปุ่น อาหรับ รัสเซีย เยอรมัน ฝรั่งเศส เกาหลี และสเปน ล่ามทุกคนได้รับการรับรองและมีความเชี่ยวชาญด้านศัพท์ทางการแพทย์',
+
+        // AI Assistant – greeting & suggestions
+        aiGreeting: 'สวัสดีครับ! Hello! Ni hao!',
+        aiWelcomeMsg: 'ผมคือผู้ช่วยดูแลสุขภาพส่วนตัวของคุณ วันนี้ช่วยอะไรได้บ้างครับ?',
+        aiHelpIntro: 'ผมช่วยคุณได้เรื่อง:',
+        aiHelpItem1: 'จองนัดพบแพทย์ผู้เชี่ยวชาญ',
+        aiHelpItem2: 'จัดรถรับส่ง VIP สนามบิน',
+        aiHelpItem3: 'จัดการและแปลเอกสารทางการแพทย์',
+        aiHelpItem4: 'ขอ Second Opinion',
+        aiHelpItem5: 'ประมาณค่าใช้จ่ายและแพ็กเกจ',
+        aiSuggestion1: 'จองนัดแพทย์',
+        aiSuggestion2: 'ขอ Second Opinion',
+        aiSuggestion3: 'รถรับส่งสนามบิน',
+        aiSuggestion4: 'อัปโหลดเอกสาร',
+        aiSidebarConsults: 'การปรึกษาล่าสุด',
+        aiSidebarProfile: 'โปรไฟล์สุขภาพ',
+        aiSidebarRecords: 'เวชระเบียน',
+        aiSidebarEmergency: 'เบอร์ฉุกเฉิน',
+        aiEmergencyTitle: 'เบอร์ฉุกเฉิน',
+        aiEmergencyDesc: 'บริการตลอด 24 ชั่วโมง',
 
         // AI Assistant page
         aiBrandTagline: 'บริการทางการแพทย์ระดับพรีเมียม',
@@ -388,7 +456,7 @@ const translations = {
         footerAiConcierge: 'AI คอนเซียร์จ',
         footerPrivacy: 'นโยบายความเป็นส่วนตัว',
         footerTerms: 'ข้อกำหนดการใช้บริการ',
-        footerCopyright: '© 2568 Concierge Care สงวนลิขสิทธิ์',
+        footerCopyright: '© 2568 Bio Connext สงวนลิขสิทธิ์',
     },
 
     cn: {
@@ -522,7 +590,7 @@ const translations = {
         ourStory: '我们的故事',
         aboutTitle1: '重新定义',
         aboutTitle2: '医疗旅游',
-        aboutDesc1: '2015年成立于曼谷，Concierge Care源于一个简单的信念：每位患者都应该获得世界级医疗服务，而不受复杂性、困惑或成本障碍的阻碍。',
+        aboutDesc1: '2015年成立于曼谷，Bio Connext源于一个简单的信念：每位患者都应该获得世界级医疗服务，而不受复杂性、困惑或成本障碍的阻碍。',
         aboutDesc2: '我们弥合了国际培训专家与全球需要他们的患者之间的差距——以奢华、透明和真诚人文关怀为承诺。',
         estYear: '成立于2015年',
         estCity: '泰国曼谷',
@@ -547,8 +615,42 @@ const translations = {
         leadershipTeam: '我们的领导团队',
         partnersLabel: '我们的合作伙伴与认证',
         aboutCtaTitle: '准备好开始您的旅程了吗？',
-        aboutCtaDesc: '加入数千名信任Concierge Care为其最重要健康决策提供导航的患者行列。',
+        aboutCtaDesc: '加入数千名信任Bio Connext为其最重要健康决策提供导航的患者行列。',
         meetSpecialists: '认识我们的专家',
+
+        // FAQ Section
+        faqTitle: '常见问题',
+        faqSubtitle: '关于泰国医疗旅游您需要了解的一切',
+        faq1Q: '什么是泰国医疗旅游？',
+        faq1A: '泰国医疗旅游是指国际患者前往泰国接受医疗服务。泰国是全球医疗旅游的领导者，拥有JCI认证医院、经过认证的专科医生，费用比西方国家低40-70%。Bio Connext为您协调从专家匹配到治疗后康复的全程服务。',
+        faq2Q: '泰国的医疗费用与美国相比如何？',
+        faq2A: '泰国的医疗费用通常比美国低40-70%。例如，心脏手术在泰国约需$15,000-$25,000，而在美国则需$70,000-$150,000。骨科手术、牙科治疗和整形手术也有类似的节省——全部在JCI认证的机构内由国际培训的外科医生完成。',
+        faq3Q: 'Bio Connext提供哪些服务？',
+        faq3A: 'Bio Connext提供全方位医疗礼宾服务，包括：从50多位合作伙伴中匹配专科医生、第二诊断意见、机场迎接服务、VIP医疗接送、10多种语言的医疗口译、保险协调、术后护理、住宿安排以及24/7多语言礼宾支持。',
+        faq4Q: '泰国的医院是否获得国际认证？',
+        faq4A: '是的，泰国拥有超过60家JCI（国际联合委员会）认证医院——数量居亚洲首位。Bio Connext仅与JCI认证、ISO 9001:2015认证和TEMOS认证的医疗机构合作，确保最高标准的患者安全和质量。',
+        faq5Q: '医疗口译支持哪些语言？',
+        faq5A: 'Bio Connext提供超过10种语言的专业医疗口译服务，包括英语、泰语、普通话、日语、阿拉伯语、俄语、德语、法语、韩语和西班牙语。所有医疗口译员均经过认证，精通医疗术语。',
+
+        // AI Assistant – greeting & suggestions
+        aiGreeting: '您好！Sawasdee krub! Hello!',
+        aiWelcomeMsg: '我是您的私人医疗礼宾顾问。今天我能如何协助您的健康之旅？',
+        aiHelpIntro: '我可以帮助您：',
+        aiHelpItem1: '预约专科医生',
+        aiHelpItem2: '安排VIP机场接送',
+        aiHelpItem3: '处理和翻译医疗文件',
+        aiHelpItem4: '申请第二诊断意见',
+        aiHelpItem5: '费用估算和礼宾套餐',
+        aiSuggestion1: '预约医生',
+        aiSuggestion2: '第二诊断意见',
+        aiSuggestion3: '机场接送',
+        aiSuggestion4: '上传病历',
+        aiSidebarConsults: '最近咨询',
+        aiSidebarProfile: '我的健康档案',
+        aiSidebarRecords: '病历记录',
+        aiSidebarEmergency: '紧急联系人',
+        aiEmergencyTitle: '紧急联系人',
+        aiEmergencyDesc: '全天候24小时',
 
         // AI Assistant page
         aiBrandTagline: '高端医疗协助服务',
@@ -583,17 +685,34 @@ const translations = {
         footerAiConcierge: 'AI礼宾',
         footerPrivacy: '隐私政策',
         footerTerms: '服务条款',
-        footerCopyright: '© 2025 Concierge Care. 保留所有权利。',
+        footerCopyright: '© 2025 Bio Connext. 保留所有权利。',
     },
 };
 
 const LanguageContext = createContext();
 
+const langMap = { en: 'en', th: 'th', cn: 'zh' };
+
 export const LanguageProvider = ({ children }) => {
-    const [language, setLanguage] = useState('en');
+    const [language, setLanguageState] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('lang') || 'en';
+        }
+        return 'en';
+    });
+
+    const setLanguage = (lang) => {
+        setLanguageState(lang);
+        localStorage.setItem('lang', lang);
+    };
+
+    // Update <html lang> for screen readers and search engines
+    useEffect(() => {
+        document.documentElement.lang = langMap[language] || language;
+    }, [language]);
 
     const t = (key) => {
-        return translations[language][key] || translations['en'][key] || key;
+        return translations[language]?.[key] || translations['en'][key] || key;
     };
 
     return (

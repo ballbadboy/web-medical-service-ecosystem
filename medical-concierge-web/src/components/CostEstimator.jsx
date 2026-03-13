@@ -49,7 +49,7 @@ const CostEstimator = () => {
                 </div>
                 <div className="text-right">
                     <div className="text-xs text-white/70 uppercase tracking-wider font-bold mb-1">{t('ceEstimatedCost')}</div>
-                    <div className="text-3xl font-black">${calculateEstimate().toLocaleString()}</div>
+                    <div className="text-3xl font-black">{formData.condition ? `$${calculateEstimate().toLocaleString()}` : '--'}</div>
                 </div>
             </div>
 

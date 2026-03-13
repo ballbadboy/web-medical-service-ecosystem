@@ -4,5 +4,5 @@ import { viteSingleFile } from 'vite-plugin-singlefile';
 
 export default defineConfig({
   plugins: [react(), viteSingleFile()],
-  base: './', // Allow relative paths for file:// protocol
+  base: '/', // Absolute paths for BrowserRouter SEO support
 });
