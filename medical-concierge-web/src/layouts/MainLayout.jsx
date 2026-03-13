@@ -21,10 +21,20 @@ const Layout = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    // Lock body scroll when mobile menu is open
+    // Lock body scroll when mobile menu is open & close on Escape
     useEffect(() => {
         document.body.style.overflow = isMenuOpen ? 'hidden' : '';
-        return () => { document.body.style.overflow = ''; };
+
+        if (!isMenuOpen) return () => { document.body.style.overflow = ''; };
+
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') setIsMenuOpen(false);
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', handleKeyDown);
+        };
     }, [isMenuOpen]);
 
     const languages = [
@@ -105,8 +115,8 @@ const Layout = () => {
                             {/* Dark Mode Toggle */}
                             <button
                                 onClick={toggleTheme}
-                                className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-text-muted dark:text-slate-400"
-                                aria-label={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+                                className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-text-muted dark:text-slate-300"
+                                aria-label={isDark ? t('themeLight') : t('themeDark')}
                             >
                                 <span className="material-symbols-outlined !text-[20px]">{isDark ? 'light_mode' : 'dark_mode'}</span>
                             </button>
@@ -122,8 +132,8 @@ const Layout = () => {
                         {/* Dark Mode (mobile) */}
                         <button
                             onClick={toggleTheme}
-                            className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-text-muted dark:text-slate-400"
-                            aria-label={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+                            className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-text-muted dark:text-slate-300"
+                            aria-label={isDark ? t('themeLight') : t('themeDark')}
                         >
                             <span className="material-symbols-outlined !text-[20px]">{isDark ? 'light_mode' : 'dark_mode'}</span>
                         </button>
@@ -191,7 +201,7 @@ const Layout = () => {
                                 <span className="material-symbols-outlined text-primary">medical_services</span>
                                 <span className="font-bold text-xl">Bio Connext</span>
                             </div>
-                            <p className="text-sm max-w-xs mb-6">
+                            <p className="text-sm max-w-xs mb-6 text-slate-300">
                                 {t('footerDesc')}
                             </p>
                             <div className="flex gap-4">

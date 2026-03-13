@@ -118,6 +118,12 @@ const translations = {
         searchPlaceholder: 'Search by name or specialty...',
         availableNow: 'Available Now',
         filterAll: 'All Specialties',
+        filterCardiology: 'Cardiology',
+        filterOrthopedics: 'Orthopedics',
+        filterOncology: 'Oncology',
+        filterNeurology: 'Neurology',
+        filterStemCell: 'Stem Cell',
+        filterCosmetic: 'Cosmetic',
         statusAvailable: 'Available',
         statusBooked: 'Booked',
         bookConsultation: 'Book Consultation',
@@ -228,6 +234,35 @@ const translations = {
         footerPrivacy: 'Privacy Policy',
         footerTerms: 'Terms of Service',
         footerCopyright: '© 2025 Bio Connext. All rights reserved.',
+
+        // NotFound page
+        notFoundTitle: '404',
+        notFoundHeading: 'Page Not Found',
+        notFoundDesc: "The page you're looking for doesn't exist or has been moved.",
+        notFoundHome: 'Back to Home',
+        notFoundAi: 'Ask AI Assistant',
+
+        // BookingModal
+        bookingSubtitle: 'Fill in your details and we will contact you',
+        bookingThankYou: 'Thank you!',
+        bookingSuccessDesc: "We'll contact you within 24 hours.",
+        bookingLabelName: 'Full Name',
+        bookingLabelEmail: 'Email',
+        bookingLabelPhone: 'Phone',
+        bookingLabelSpecialty: 'Condition / Specialty',
+        bookingSelectSpecialty: 'Select a specialty...',
+        bookingLabelDate: 'Preferred Date',
+        bookingLabelNotes: 'Additional Notes',
+        bookingErrName: 'Name is required',
+        bookingErrEmailReq: 'Email is required',
+        bookingErrEmailValid: 'Please enter a valid email',
+        bookingErrPhone: 'Phone number is required',
+        bookingErrSpecialty: 'Please select a specialty',
+        bookingErrDate: 'Please select a date',
+
+        // Theme toggle
+        themeLight: 'Switch to Light Mode',
+        themeDark: 'Switch to Dark Mode',
     },
 
     th: {
@@ -347,6 +382,12 @@ const translations = {
         searchPlaceholder: 'ค้นหาชื่อแพทย์หรือสาขาเฉพาะทาง...',
         availableNow: 'พร้อมรับนัดตอนนี้',
         filterAll: 'ทุกสาขา',
+        filterCardiology: 'โรคหัวใจ',
+        filterOrthopedics: 'กระดูกและข้อ',
+        filterOncology: 'มะเร็งวิทยา',
+        filterNeurology: 'ประสาทวิทยา',
+        filterStemCell: 'สเต็มเซลล์',
+        filterCosmetic: 'ศัลยกรรมตกแต่ง',
         statusAvailable: 'ว่าง',
         statusBooked: 'เต็ม',
         bookConsultation: 'จองนัดปรึกษา',
@@ -457,6 +498,35 @@ const translations = {
         footerPrivacy: 'นโยบายความเป็นส่วนตัว',
         footerTerms: 'ข้อกำหนดการใช้บริการ',
         footerCopyright: '© 2568 Bio Connext สงวนลิขสิทธิ์',
+
+        // NotFound page
+        notFoundTitle: '404',
+        notFoundHeading: 'ไม่พบหน้านี้',
+        notFoundDesc: 'หน้าที่คุณค้นหาไม่มีอยู่หรือถูกย้ายแล้ว',
+        notFoundHome: 'กลับหน้าหลัก',
+        notFoundAi: 'ถาม AI',
+
+        // BookingModal
+        bookingSubtitle: 'กรอกข้อมูลของคุณ แล้วเราจะติดต่อกลับ',
+        bookingThankYou: 'ขอบคุณครับ!',
+        bookingSuccessDesc: 'เราจะติดต่อคุณภายใน 24 ชั่วโมง',
+        bookingLabelName: 'ชื่อ-นามสกุล',
+        bookingLabelEmail: 'อีเมล',
+        bookingLabelPhone: 'เบอร์โทรศัพท์',
+        bookingLabelSpecialty: 'อาการ / สาขาเฉพาะทาง',
+        bookingSelectSpecialty: 'เลือกสาขาเฉพาะทาง...',
+        bookingLabelDate: 'วันที่ต้องการ',
+        bookingLabelNotes: 'หมายเหตุเพิ่มเติม',
+        bookingErrName: 'กรุณากรอกชื่อ',
+        bookingErrEmailReq: 'กรุณากรอกอีเมล',
+        bookingErrEmailValid: 'กรุณากรอกอีเมลที่ถูกต้อง',
+        bookingErrPhone: 'กรุณากรอกเบอร์โทรศัพท์',
+        bookingErrSpecialty: 'กรุณาเลือกสาขาเฉพาะทาง',
+        bookingErrDate: 'กรุณาเลือกวันที่',
+
+        // Theme toggle
+        themeLight: 'เปลี่ยนเป็นโหมดสว่าง',
+        themeDark: 'เปลี่ยนเป็นโหมดมืด',
     },
 
     cn: {
@@ -576,6 +646,12 @@ const translations = {
         searchPlaceholder: '按姓名或专业搜索...',
         availableNow: '立即可用',
         filterAll: '所有专业',
+        filterCardiology: '心脏病学',
+        filterOrthopedics: '骨科',
+        filterOncology: '肿瘤学',
+        filterNeurology: '神经学',
+        filterStemCell: '干细胞',
+        filterCosmetic: '整形美容',
         statusAvailable: '可用',
         statusBooked: '已预约',
         bookConsultation: '预约咨询',
@@ -686,6 +762,35 @@ const translations = {
         footerPrivacy: '隐私政策',
         footerTerms: '服务条款',
         footerCopyright: '© 2025 Bio Connext. 保留所有权利。',
+
+        // NotFound page
+        notFoundTitle: '404',
+        notFoundHeading: '页面未找到',
+        notFoundDesc: '您要查找的页面不存在或已被移动。',
+        notFoundHome: '返回首页',
+        notFoundAi: '询问AI助手',
+
+        // BookingModal
+        bookingSubtitle: '填写您的信息，我们将与您联系',
+        bookingThankYou: '谢谢您！',
+        bookingSuccessDesc: '我们将在24小时内与您联系。',
+        bookingLabelName: '全名',
+        bookingLabelEmail: '电子邮件',
+        bookingLabelPhone: '电话号码',
+        bookingLabelSpecialty: '病症 / 专科',
+        bookingSelectSpecialty: '请选择专科...',
+        bookingLabelDate: '首选日期',
+        bookingLabelNotes: '附加说明',
+        bookingErrName: '请输入姓名',
+        bookingErrEmailReq: '请输入电子邮件',
+        bookingErrEmailValid: '请输入有效的电子邮件',
+        bookingErrPhone: '请输入电话号码',
+        bookingErrSpecialty: '请选择专科',
+        bookingErrDate: '请选择日期',
+
+        // Theme toggle
+        themeLight: '切换到浅色模式',
+        themeDark: '切换到深色模式',
     },
 };
 

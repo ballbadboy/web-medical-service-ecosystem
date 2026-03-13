@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import SeoHead from '../components/SeoHead';
@@ -111,7 +111,17 @@ const Specialists = () => {
     const [bookingOpen, setBookingOpen] = useState(false);
     const [bookingSpecialist, setBookingSpecialist] = useState('');
 
-    const filtered = specialistsData.filter((doc) => {
+    const filterLabels = useMemo(() => ({
+        'All Specialties': t('filterAll'),
+        'Cardiology': t('filterCardiology'),
+        'Orthopedics': t('filterOrthopedics'),
+        'Oncology': t('filterOncology'),
+        'Neurology': t('filterNeurology'),
+        'Stem Cell': t('filterStemCell'),
+        'Cosmetic': t('filterCosmetic'),
+    }), [t]);
+
+    const filtered = useMemo(() => specialistsData.filter((doc) => {
         const matchSearch =
             doc.name.toLowerCase().includes(search.toLowerCase()) ||
             doc.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -119,7 +129,7 @@ const Specialists = () => {
         const matchAvail = availableOnly ? doc.available : true;
         const matchFilter = filterMap[activeFilter] ? filterMap[activeFilter](doc) : true;
         return matchSearch && matchAvail && matchFilter;
-    });
+    }), [activeFilter, availableOnly, search]);
 
     return (
         <>
@@ -167,6 +177,7 @@ const Specialists = () => {
                             placeholder={t('searchPlaceholder')}
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
+                            aria-label="Search specialists"
                             className="w-full pl-10 pr-4 h-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-primary text-text-main dark:text-white"
                         />
                     </div>
@@ -177,12 +188,13 @@ const Specialists = () => {
                             <button
                                 key={f}
                                 onClick={() => setActiveFilter(f)}
+                                aria-pressed={activeFilter === f}
                                 className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition-colors ${activeFilter === f
                                     ? 'bg-primary text-white border-primary'
                                     : 'bg-white dark:bg-slate-800 text-text-muted dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-primary hover:text-primary'
                                     }`}
                             >
-                                {f === 'All Specialties' ? t('filterAll') : f}
+                                {filterLabels[f] || f}
                             </button>
                         ))}
                         <label className="flex items-center gap-2 ml-2 cursor-pointer select-none text-sm text-text-muted dark:text-slate-400 font-medium">

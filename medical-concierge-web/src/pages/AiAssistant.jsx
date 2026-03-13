@@ -105,8 +105,8 @@ const makeInitialMessages = (t) => [
             <>
                 <p>{t('aiGreeting')} 👋</p>
                 <p className="mt-2">{t('aiWelcomeMsg')}</p>
-                <p className="mt-2 text-slate-400 dark:text-slate-400 text-xs">{t('aiHelpIntro')}</p>
-                <ul className="list-disc ml-5 mt-1 space-y-0.5 text-slate-400 dark:text-slate-400 text-xs">
+                <p className="mt-2 text-slate-400 dark:text-slate-300 text-xs">{t('aiHelpIntro')}</p>
+                <ul className="list-disc ml-5 mt-1 space-y-0.5 text-slate-400 dark:text-slate-300 text-xs">
                     <li>{t('aiHelpItem1')}</li>
                     <li>{t('aiHelpItem2')}</li>
                     <li>{t('aiHelpItem3')}</li>
@@ -133,45 +133,64 @@ const makeInitialMessages = (t) => [
 ];
 
 // ── Emergency modal ──────────────────────────────────────────────────────────
-const EmergencyModal = ({ onClose, t }) => (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={onClose}>
-        <div className="bg-white dark:bg-surface-dark rounded-2xl shadow-2xl max-w-sm w-full p-6 border border-red-100 dark:border-red-900/30" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center text-red-600">
-                    <span className="material-symbols-outlined text-[28px]">emergency</span>
+const EmergencyModal = ({ onClose, t }) => {
+    const closeBtnRef = React.useRef(null);
+
+    React.useEffect(() => {
+        setTimeout(() => closeBtnRef.current?.focus(), 50);
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') onClose();
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [onClose]);
+
+    return (
+        <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={onClose}
+            role="alertdialog"
+            aria-modal="true"
+            aria-label="Emergency Contacts"
+        >
+            <div className="bg-white dark:bg-surface-dark rounded-2xl shadow-2xl max-w-sm w-full p-6 border border-red-100 dark:border-red-900/30" onClick={(e) => e.stopPropagation()}>
+                <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center text-red-600">
+                        <span className="material-symbols-outlined text-[28px]">emergency</span>
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-black text-red-600">{t('aiEmergencyTitle')}</h3>
+                        <p className="text-xs text-text-secondary dark:text-slate-400">{t('aiEmergencyDesc')}</p>
+                    </div>
                 </div>
-                <div>
-                    <h3 className="text-lg font-black text-red-600">{t('aiEmergencyTitle')}</h3>
-                    <p className="text-xs text-text-secondary dark:text-slate-400">{t('aiEmergencyDesc')}</p>
+                <div className="flex flex-col gap-3">
+                    {[
+                        { label: 'Concierge Hotline', number: '+66 2 123 4567', icon: 'support_agent' },
+                        { label: 'Medical Emergency (TH)', number: '1669', icon: 'local_hospital' },
+                        { label: 'Tourist Police', number: '1155', icon: 'local_police' },
+                        { label: 'WhatsApp 24h', number: '+66 81 234 5678', icon: 'chat' },
+                    ].map((c) => (
+                        <a
+                            key={c.label}
+                            href={`tel:${c.number.replace(/\s/g, '')}`}
+                            className="flex items-center gap-3 p-3 rounded-xl bg-red-50 dark:bg-red-900/10 hover:bg-red-100 dark:hover:bg-red-900/20 border border-red-100 dark:border-red-900/20 transition-colors"
+                        >
+                            <span className="material-symbols-outlined text-red-500 text-[20px]">{c.icon}</span>
+                            <div className="flex-1 min-w-0">
+                                <p className="text-xs text-text-secondary dark:text-slate-400">{c.label}</p>
+                                <p className="font-bold text-text-main dark:text-white">{c.number}</p>
+                            </div>
+                            <span className="material-symbols-outlined text-red-400 text-[18px]">call</span>
+                        </a>
+                    ))}
                 </div>
+                <button ref={closeBtnRef} onClick={onClose} className="mt-4 w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-text-main dark:text-white font-semibold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                    {t('aiClose')}
+                </button>
             </div>
-            <div className="flex flex-col gap-3">
-                {[
-                    { label: 'Concierge Hotline', number: '+66 2 123 4567', icon: 'support_agent' },
-                    { label: 'Medical Emergency (TH)', number: '1669', icon: 'local_hospital' },
-                    { label: 'Tourist Police', number: '1155', icon: 'local_police' },
-                    { label: 'WhatsApp 24h', number: '+66 81 234 5678', icon: 'chat' },
-                ].map((c) => (
-                    <a
-                        key={c.label}
-                        href={`tel:${c.number.replace(/\s/g, '')}`}
-                        className="flex items-center gap-3 p-3 rounded-xl bg-red-50 dark:bg-red-900/10 hover:bg-red-100 dark:hover:bg-red-900/20 border border-red-100 dark:border-red-900/20 transition-colors"
-                    >
-                        <span className="material-symbols-outlined text-red-500 text-[20px]">{c.icon}</span>
-                        <div className="flex-1 min-w-0">
-                            <p className="text-xs text-text-secondary dark:text-slate-400">{c.label}</p>
-                            <p className="font-bold text-text-main dark:text-white">{c.number}</p>
-                        </div>
-                        <span className="material-symbols-outlined text-red-400 text-[18px]">call</span>
-                    </a>
-                ))}
-            </div>
-            <button onClick={onClose} className="mt-4 w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-text-main dark:text-white font-semibold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-                {t('aiClose')}
-            </button>
         </div>
-    </div>
-);
+    );
+};
 
 // ── Main Component ────────────────────────────────────────────────────────────
 const AiAssistant = () => {
@@ -335,7 +354,7 @@ const AiAssistant = () => {
                             <p className="text-xs text-text-secondary dark:text-slate-400">{t('aiBrandTagline')}</p>
                         </div>
                     </Link>
-                    <button className="md:hidden w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" onClick={() => setIsSidebarOpen(false)}>
+                    <button className="md:hidden w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" onClick={() => setIsSidebarOpen(false)} aria-label="Close sidebar">
                         <span className="material-symbols-outlined text-[20px]">close</span>
                     </button>
                 </div>
@@ -409,7 +428,7 @@ const AiAssistant = () => {
                 {/* Chat Header */}
                 <header className="flex-shrink-0 bg-surface-light dark:bg-surface-dark border-b border-border-light dark:border-border-dark px-4 sm:px-6 py-3 flex items-center justify-between shadow-sm z-10">
                     <div className="flex items-center gap-3">
-                        <button className="md:hidden p-1.5 -ml-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" onClick={() => setIsSidebarOpen(true)}>
+                        <button className="md:hidden p-1.5 -ml-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" onClick={() => setIsSidebarOpen(true)} aria-label="Open sidebar menu" aria-expanded={isSidebarOpen}>
                             <span className="material-symbols-outlined">menu</span>
                         </button>
                         <div className="relative">
@@ -474,7 +493,7 @@ const AiAssistant = () => {
                 </header>
 
                 {/* Chat Messages */}
-                <div className="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col gap-5">
+                <div className="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col gap-5" role="log" aria-live="polite">
                     {/* Date pill */}
                     <div className="flex justify-center">
                         <span className="text-xs font-medium text-text-secondary dark:text-slate-500 bg-surface-light dark:bg-slate-800 px-3 py-1 rounded-full border border-border-light dark:border-slate-700 shadow-sm">
@@ -521,7 +540,7 @@ const AiAssistant = () => {
 
                     {/* Typing indicator */}
                     {isTyping && (
-                        <div className="flex items-end gap-3 max-w-[85%]">
+                        <div className="flex items-end gap-3 max-w-[85%]" role="status" aria-live="polite" aria-label="AI is typing">
                             <AIAvatar className="w-9 h-9 mb-1" />
                             <div className="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-slate-700 px-4 py-3 rounded-2xl rounded-bl-none shadow-sm flex gap-1 items-center">
                                 {[0, 150, 300].map((delay) => (
@@ -541,7 +560,7 @@ const AiAssistant = () => {
                             <button
                                 onClick={() => fileInputRef.current?.click()}
                                 className="p-2 text-text-secondary dark:text-slate-400 hover:text-primary hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl transition-colors self-end"
-                                title="Attach medical documents"
+                                aria-label="Attach medical documents"
                             >
                                 <span className="material-symbols-outlined text-[22px]">attach_file</span>
                             </button>
@@ -553,6 +572,7 @@ const AiAssistant = () => {
                                 onKeyDown={handleKeyDown}
                                 rows={1}
                                 className="w-full bg-transparent border-none focus:ring-0 py-2 px-1 resize-none text-text-main dark:text-white placeholder-text-secondary dark:placeholder-slate-500 text-sm self-end"
+                                aria-label="Type your message"
                                 placeholder={t('aiTypePlaceholder')}
                                 style={{ minHeight: '40px', maxHeight: '128px' }}
                             />
@@ -564,7 +584,7 @@ const AiAssistant = () => {
                                     ? 'bg-primary hover:bg-secondary text-white'
                                     : 'bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed'
                                 }`}
-                                title="Send message"
+                                aria-label="Send message"
                             >
                                 <span className="material-symbols-outlined text-[22px]">send</span>
                             </button>

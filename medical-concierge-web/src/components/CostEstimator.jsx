@@ -93,6 +93,7 @@ const CostEstimator = () => {
                                 <button
                                     key={item.id}
                                     onClick={() => setFormData({ ...formData, condition: item.id })}
+                                    aria-pressed={formData.condition === item.id}
                                     className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${formData.condition === item.id
                                             ? 'border-primary bg-primary/5 text-primary'
                                             : 'border-slate-200 dark:border-slate-700 hover:border-primary/50 text-text-main dark:text-white'

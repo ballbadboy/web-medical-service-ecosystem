@@ -75,17 +75,27 @@ Critical rules:
 
 // ── Handler ─────────────────────────────────────────────────────────────────
 export default async function handler(req, res) {
+  // CORS
+  res.setHeader('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGIN || 'https://bio.techdev.in.th');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.status(204).end();
+
   // Only allow POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Rate limiting
-  const clientIp = req.headers['x-forwarded-for']?.split(',')[0]?.trim()
-    || req.socket?.remoteAddress
-    || 'unknown';
+  // Body size limit
+  const bodyStr = JSON.stringify(req.body);
+  if (bodyStr.length > 50 * 1024) {
+    return res.status(413).json({ error: 'Request payload too large.' });
+  }
 
-  if (isRateLimited(clientIp)) {
+  // Rate limiting
+  const ip = req.headers['x-real-ip'] || (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
+
+  if (isRateLimited(ip)) {
     return res.status(429).json({
       error: 'Too many requests. Please wait a moment before trying again.',
       retryAfterSeconds: 60,
@@ -110,6 +120,10 @@ export default async function handler(req, res) {
     });
   }
 
+  if (messages.length > 20) {
+    return res.status(400).json({ error: 'Maximum 20 messages per request.' });
+  }
+
   // Validate each message has role and content
   for (const msg of messages) {
     if (!msg.role || !msg.content) {
@@ -121,6 +135,9 @@ export default async function handler(req, res) {
       return res.status(400).json({
         error: 'Invalid request: message role must be "user" or "assistant".',
       });
+    }
+    if (typeof msg.content !== 'string' || msg.content.length > 4000) {
+      return res.status(400).json({ error: 'Each message must be a string under 4000 characters.' });
     }
   }
 
@@ -145,6 +162,7 @@ export default async function handler(req, res) {
           content: m.content,
         })),
       }),
+      signal: AbortSignal.timeout(8000),
     });
 
     if (!response.ok) {

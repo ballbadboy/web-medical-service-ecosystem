@@ -45,14 +45,43 @@ const BookingModal = ({ isOpen, onClose, prefillSpecialist = '' }) => {
     // Trap focus & close on Escape
     useEffect(() => {
         if (!isOpen) return;
+        const modal = modalRef.current;
+        if (!modal) return;
+
+        const previouslyFocused = document.activeElement;
+
+        const focusableElements = modal.querySelectorAll(
+            'input, select, textarea, button, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstEl = focusableElements[0];
+        const lastEl = focusableElements[focusableElements.length - 1];
+
+        // Auto-focus first input
+        setTimeout(() => firstEl?.focus(), 50);
+
         const handleKeyDown = (e) => {
-            if (e.key === 'Escape') onClose();
+            if (e.key === 'Escape') { onClose(); return; }
+            if (e.key !== 'Tab') return;
+
+            if (e.shiftKey) {
+                if (document.activeElement === firstEl) {
+                    e.preventDefault();
+                    lastEl?.focus();
+                }
+            } else {
+                if (document.activeElement === lastEl) {
+                    e.preventDefault();
+                    firstEl?.focus();
+                }
+            }
         };
+
         document.addEventListener('keydown', handleKeyDown);
         document.body.style.overflow = 'hidden';
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
             document.body.style.overflow = '';
+            previouslyFocused?.focus();
         };
     }, [isOpen, onClose]);
 
@@ -64,15 +93,15 @@ const BookingModal = ({ isOpen, onClose, prefillSpecialist = '' }) => {
 
     const validate = () => {
         const newErrors = {};
-        if (!formData.name.trim()) newErrors.name = 'Name is required';
+        if (!formData.name.trim()) newErrors.name = t('bookingErrName');
         if (!formData.email.trim()) {
-            newErrors.email = 'Email is required';
+            newErrors.email = t('bookingErrEmailReq');
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            newErrors.email = 'Please enter a valid email';
+            newErrors.email = t('bookingErrEmailValid');
         }
-        if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
-        if (!formData.specialty) newErrors.specialty = 'Please select a specialty';
-        if (!formData.preferredDate) newErrors.preferredDate = 'Please select a date';
+        if (!formData.phone.trim()) newErrors.phone = t('bookingErrPhone');
+        if (!formData.specialty) newErrors.specialty = t('bookingErrSpecialty');
+        if (!formData.preferredDate) newErrors.preferredDate = t('bookingErrDate');
         return newErrors;
     };
 
@@ -119,7 +148,7 @@ const BookingModal = ({ isOpen, onClose, prefillSpecialist = '' }) => {
                         <span className="material-symbols-outlined text-white text-[24px]">calendar_month</span>
                         <div>
                             <h2 className="text-lg font-bold text-white">{t('bookConsultation')}</h2>
-                            <p className="text-white/70 text-xs">Fill in your details and we will contact you</p>
+                            <p className="text-white/70 text-xs">{t('bookingSubtitle')}</p>
                         </div>
                     </div>
                     <button
@@ -138,9 +167,9 @@ const BookingModal = ({ isOpen, onClose, prefillSpecialist = '' }) => {
                             <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <span className="material-symbols-outlined !text-[36px]">check_circle</span>
                             </div>
-                            <h3 className="text-xl font-bold text-text-main dark:text-white mb-2">Thank you!</h3>
+                            <h3 className="text-xl font-bold text-text-main dark:text-white mb-2">{t('bookingThankYou')}</h3>
                             <p className="text-text-muted dark:text-slate-400 mb-6">
-                                We'll contact you within 24 hours.
+                                {t('bookingSuccessDesc')}
                             </p>
                             <button
                                 onClick={onClose}
@@ -154,7 +183,7 @@ const BookingModal = ({ isOpen, onClose, prefillSpecialist = '' }) => {
                             {/* Name */}
                             <div>
                                 <label htmlFor="booking-name" className="block text-sm font-semibold text-text-main dark:text-white mb-1">
-                                    Full Name <span className="text-red-500">*</span>
+                                    {t('bookingLabelName')} <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     id="booking-name"
@@ -171,7 +200,7 @@ const BookingModal = ({ isOpen, onClose, prefillSpecialist = '' }) => {
                             {/* Email */}
                             <div>
                                 <label htmlFor="booking-email" className="block text-sm font-semibold text-text-main dark:text-white mb-1">
-                                    Email <span className="text-red-500">*</span>
+                                    {t('bookingLabelEmail')} <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     id="booking-email"
@@ -188,7 +217,7 @@ const BookingModal = ({ isOpen, onClose, prefillSpecialist = '' }) => {
                             {/* Phone */}
                             <div>
                                 <label htmlFor="booking-phone" className="block text-sm font-semibold text-text-main dark:text-white mb-1">
-                                    Phone <span className="text-red-500">*</span>
+                                    {t('bookingLabelPhone')} <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     id="booking-phone"
@@ -205,7 +234,7 @@ const BookingModal = ({ isOpen, onClose, prefillSpecialist = '' }) => {
                             {/* Specialty */}
                             <div>
                                 <label htmlFor="booking-specialty" className="block text-sm font-semibold text-text-main dark:text-white mb-1">
-                                    Condition / Specialty <span className="text-red-500">*</span>
+                                    {t('bookingLabelSpecialty')} <span className="text-red-500">*</span>
                                 </label>
                                 <select
                                     id="booking-specialty"
@@ -214,7 +243,7 @@ const BookingModal = ({ isOpen, onClose, prefillSpecialist = '' }) => {
                                     onChange={handleChange}
                                     className={`w-full h-10 px-3 rounded-lg border text-sm bg-white dark:bg-slate-800 text-text-main dark:text-white focus:outline-none focus:ring-2 focus:ring-primary ${errors.specialty ? 'border-red-400' : 'border-slate-200 dark:border-slate-700'}`}
                                 >
-                                    <option value="">Select a specialty...</option>
+                                    <option value="">{t('bookingSelectSpecialty')}</option>
                                     {specialties.map((s) => (
                                         <option key={s} value={s}>{s}</option>
                                     ))}
@@ -225,7 +254,7 @@ const BookingModal = ({ isOpen, onClose, prefillSpecialist = '' }) => {
                             {/* Preferred Date */}
                             <div>
                                 <label htmlFor="booking-date" className="block text-sm font-semibold text-text-main dark:text-white mb-1">
-                                    Preferred Date <span className="text-red-500">*</span>
+                                    {t('bookingLabelDate')} <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     id="booking-date"
@@ -242,7 +271,7 @@ const BookingModal = ({ isOpen, onClose, prefillSpecialist = '' }) => {
                             {/* Notes */}
                             <div>
                                 <label htmlFor="booking-notes" className="block text-sm font-semibold text-text-main dark:text-white mb-1">
-                                    Additional Notes
+                                    {t('bookingLabelNotes')}
                                 </label>
                                 <textarea
                                     id="booking-notes"

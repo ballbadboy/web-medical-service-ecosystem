@@ -19,9 +19,21 @@ const RESPONSE_MESSAGES = {
 };
 
 export default async function handler(req, res) {
+  // CORS
+  res.setHeader('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGIN || 'https://bio.techdev.in.th');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.status(204).end();
+
   // Only allow POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  // Body size limit
+  const bodyStr = JSON.stringify(req.body);
+  if (bodyStr.length > 50 * 1024) {
+    return res.status(413).json({ error: 'Request payload too large.' });
   }
 
   const {

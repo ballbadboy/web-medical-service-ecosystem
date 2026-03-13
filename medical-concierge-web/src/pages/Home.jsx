@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import SeoHead from '../components/SeoHead';
@@ -8,13 +8,13 @@ const Home = () => {
     const navigate = useNavigate();
     const [openFaq, setOpenFaq] = useState(null);
 
-    const faqData = [
+    const faqData = useMemo(() => [
         { q: t('faq1Q'), a: t('faq1A') },
         { q: t('faq2Q'), a: t('faq2A') },
         { q: t('faq3Q'), a: t('faq3A') },
         { q: t('faq4Q'), a: t('faq4A') },
         { q: t('faq5Q'), a: t('faq5A') },
-    ];
+    ], [t]);
 
     return (
         <>
@@ -244,6 +244,7 @@ const Home = () => {
                                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
                                     className="w-full flex items-center justify-between px-6 py-5 text-left"
                                     aria-expanded={openFaq === i}
+                                    aria-controls={`faq-answer-${i}`}
                                 >
                                     <span className="font-bold text-text-main dark:text-white pr-4" itemProp="name">{faq.q}</span>
                                     <span className={`material-symbols-outlined text-primary shrink-0 transition-transform duration-200 ${openFaq === i ? 'rotate-180' : ''}`}>
@@ -251,10 +252,12 @@ const Home = () => {
                                     </span>
                                 </button>
                                 <div
+                                    id={`faq-answer-${i}`}
                                     className={`overflow-hidden transition-all duration-300 ${openFaq === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
                                     itemScope
                                     itemProp="acceptedAnswer"
                                     itemType="https://schema.org/Answer"
+                                    hidden={openFaq !== i}
                                 >
                                     <p className="px-6 pb-5 text-text-muted dark:text-slate-400 leading-relaxed" itemProp="text">
                                         {faq.a}
