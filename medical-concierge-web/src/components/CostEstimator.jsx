@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -37,7 +37,7 @@ const CostEstimator = () => {
     const handlePrev = () => setStep(step - 1);
 
     return (
-        <div className="bg-white dark:bg-surface-dark rounded-2xl shadow-xl overflow-hidden border border-slate-200 dark:border-slate-800 my-10 max-w-3xl mx-auto">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-2xl shadow-medium overflow-hidden border border-border-light dark:border-border-dark my-10 max-w-3xl mx-auto">
             {/* Header */}
             <div className="bg-primary p-6 text-white flex items-center justify-between">
                 <div>
@@ -49,7 +49,7 @@ const CostEstimator = () => {
                 </div>
                 <div className="text-right">
                     <div className="text-xs text-white/70 uppercase tracking-wider font-bold mb-1">{t('ceEstimatedCost')}</div>
-                    <div className="text-3xl font-black">{formData.condition ? `$${calculateEstimate().toLocaleString()}` : '--'}</div>
+                    <div className="text-3xl font-black min-w-[120px] text-right tabular-nums">{formData.condition ? `$${calculateEstimate().toLocaleString()}` : '--'}</div>
                 </div>
             </div>
 
@@ -185,7 +185,7 @@ const CostEstimator = () => {
                         <p className="text-text-muted dark:text-slate-400 mb-8 max-w-md mx-auto">
                             {t('ceStep3Desc')}
                         </p>
-                        <button onClick={() => navigate('/ai-assistant')} className="h-12 px-8 bg-primary hover:bg-secondary text-white font-bold rounded-lg transition-colors shadow-lg">
+                        <button onClick={() => navigate('/ai-assistant')} className="btn-primary px-8">
                             {t('ceProceedBtn')}
                         </button>
                     </div>

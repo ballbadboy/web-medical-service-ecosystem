@@ -4,26 +4,86 @@
 
 @layer base {
   body {
-    @apply bg-background-light dark:bg-background-dark text-text-main dark:text-slate-100 font-display antialiased transition-colors duration-200;
+    @apply bg-background-light dark:bg-background-dark text-text-main dark:text-slate-100 font-body antialiased transition-colors duration-200;
+  }
+
+  /* Semantic heading styles — display font for impact */
+  h1, h2 {
+    font-family: "DM Serif Display", Georgia, serif;
+  }
+
+  /* Smooth focus for keyboard users */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-white dark:ring-offset-slate-900;
   }
 }
 
-/* Custom scrollbar for webkit browsers */
+@layer components {
+  /* Button system */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-lg h-12 px-6 bg-primary text-white font-semibold
+           shadow-soft hover:bg-primary-dark hover:shadow-medium
+           transition-all duration-200 ease-out-quart
+           focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-lg h-12 px-6 bg-surface-light dark:bg-surface-dark
+           border border-border-light dark:border-border-dark text-text-main dark:text-white font-semibold
+           shadow-soft hover:shadow-medium hover:border-primary/30
+           transition-all duration-200 ease-out-quart
+           focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-lg h-12 px-6
+           text-primary font-semibold hover:bg-primary/5
+           transition-all duration-200 ease-out-quart
+           focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+  }
+
+  /* Section label */
+  .section-label {
+    @apply text-primary font-bold tracking-wider uppercase text-sm;
+  }
+
+  /* Card hover — subtle shadow lift, no translate */
+  .card-hover {
+    @apply transition-shadow duration-300 ease-out-quart hover:shadow-medium;
+  }
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
+  background: #c0c8d4;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #8e99a8;
+}
+
+/* Typing indicator dots */
+@keyframes typingDot {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-4px); }
 }
 
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

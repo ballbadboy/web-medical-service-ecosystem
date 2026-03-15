@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
@@ -6,13 +6,13 @@ import SeoHead from '../components/SeoHead';
 
 // ── Avatars (no external URLs) ───────────────────────────────────────────────
 const AIAvatar = ({ className = 'w-10 h-10' }) => (
-    <div className={`${className} rounded-full bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center flex-shrink-0 shadow-sm border-2 border-white dark:border-slate-700`}>
+    <div className={`${className} rounded-full bg-primary flex items-center justify-center flex-shrink-0 shadow-sm border-2 border-white dark:border-slate-700`}>
         <span className="material-symbols-outlined text-white" style={{ fontSize: '20px' }}>support_agent</span>
     </div>
 );
 
 const UserAvatar = ({ className = 'w-10 h-10' }) => (
-    <div className={`${className} rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center flex-shrink-0 shadow-sm border-2 border-white dark:border-slate-700 text-white font-bold text-sm`}>
+    <div className={`${className} rounded-full bg-indigo-600 flex items-center justify-center flex-shrink-0 shadow-sm border-2 border-white dark:border-slate-700 text-white font-bold text-sm`}>
         You
     </div>
 );
@@ -134,9 +134,9 @@ const makeInitialMessages = (t) => [
 
 // ── Emergency modal ──────────────────────────────────────────────────────────
 const EmergencyModal = ({ onClose, t }) => {
-    const closeBtnRef = React.useRef(null);
+    const closeBtnRef = useRef(null);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setTimeout(() => closeBtnRef.current?.focus(), 50);
         const handleKeyDown = (e) => {
             if (e.key === 'Escape') onClose();
@@ -433,12 +433,12 @@ const AiAssistant = () => {
                         </button>
                         <div className="relative">
                             <AIAvatar className="w-10 h-10" />
-                            <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-surface-light dark:border-surface-dark rounded-full"></span>
+                            <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-surface-light dark:border-surface-dark rounded-full" aria-hidden="true"></span>
                         </div>
                         <div>
                             <h2 className="text-base font-bold text-text-main dark:text-white leading-tight">{t('aiDrName')}</h2>
                             <p className="text-xs text-green-600 dark:text-green-400 font-medium flex items-center gap-1">
-                                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block"></span>
+                                <span className="w-1.5 h-1.5 rounded-full bg-green-500 inline-block"></span>
                                 {t('aiOnlineStatus')}
                             </p>
                         </div>
@@ -542,9 +542,9 @@ const AiAssistant = () => {
                     {isTyping && (
                         <div className="flex items-end gap-3 max-w-[85%]" role="status" aria-live="polite" aria-label="AI is typing">
                             <AIAvatar className="w-9 h-9 mb-1" />
-                            <div className="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-slate-700 px-4 py-3 rounded-2xl rounded-bl-none shadow-sm flex gap-1 items-center">
+                            <div className="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark px-4 py-3 rounded-2xl rounded-bl-none shadow-soft flex gap-1.5 items-center">
                                 {[0, 150, 300].map((delay) => (
-                                    <div key={delay} className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: `${delay}ms` }} />
+                                    <div key={delay} className="w-2 h-2 bg-text-muted/50 rounded-full" style={{ animation: 'typingDot 1.4s ease-in-out infinite', animationDelay: `${delay}ms` }} />
                                 ))}
                             </div>
                         </div>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import CostEstimator from '../components/CostEstimator';
@@ -8,180 +7,121 @@ const Services = () => {
     const navigate = useNavigate();
     const { t } = useLanguage();
 
+    const services = [
+        { icon: 'stethoscope', titleKey: 's1Title', descKey: 's1Desc', accent: 'bg-blue-50 dark:bg-blue-900/15 text-blue-600' },
+        { icon: 'assignment_turned_in', titleKey: 's2Title', descKey: 's2Desc', accent: 'bg-emerald-50 dark:bg-emerald-900/15 text-emerald-600' },
+        { icon: 'biotech', titleKey: 's3Title', descKey: 's3Desc', accent: 'bg-violet-50 dark:bg-violet-900/15 text-violet-600' },
+        { icon: 'medical_information', titleKey: 's4Title', descKey: 's4Desc', accent: 'bg-amber-50 dark:bg-amber-900/15 text-amber-600' },
+        { icon: 'flight_takeoff', titleKey: 's5Title', descKey: 's5Desc', accent: 'bg-sky-50 dark:bg-sky-900/15 text-sky-600' },
+        { icon: 'support_agent', titleKey: 's6Title', descKey: 's6Desc', accent: 'bg-rose-50 dark:bg-rose-900/15 text-rose-600' },
+    ];
+
     return (
         <>
             <SeoHead
                 title="Medical Services & Cost Estimator"
                 description="Explore our medical concierge services: specialist coordination, second opinions, advanced therapies, post-surgery nursing, VIP logistics, and 24/7 support. Get instant cost estimates for procedures in Thailand."
             />
+
             {/* Hero Section */}
-            <div className="layout-container flex flex-col items-center justify-center px-4 py-16 sm:px-10 lg:px-40 bg-white dark:bg-surface-dark">
-                <div className="layout-content-container flex max-w-[960px] flex-col gap-6 text-center">
-                    <h1 className="text-text-main dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] sm:text-5xl lg:text-6xl">
+            <section className="px-4 py-20 md:py-24 sm:px-10 lg:px-20 bg-surface-light dark:bg-surface-dark">
+                <div className="flex max-w-[960px] mx-auto flex-col gap-5 text-center">
+                    <p className="section-label">{t('servicesHeroTitle') ? '' : ''}{/* Label comes from title */}</p>
+                    <h1 className="text-text-main dark:text-white text-display-xl">
                         {t('servicesHeroTitle')}
                     </h1>
-                    <p className="mx-auto max-w-[720px] text-text-muted dark:text-slate-400 text-lg font-normal leading-relaxed">
+                    <p className="mx-auto max-w-[640px] text-text-muted dark:text-slate-400 text-lg leading-relaxed font-body">
                         {t('servicesHeroDesc')}
                     </p>
-                    <div className="flex justify-center gap-4 pt-4">
-                        <button onClick={() => navigate('/ai-assistant')} className="flex items-center justify-center rounded-lg bg-primary h-12 px-6 text-white text-base font-bold hover:bg-secondary transition-colors shadow-lg shadow-primary/20">
+                    <div className="flex justify-center gap-3 pt-4">
+                        <button onClick={() => navigate('/ai-assistant')} className="btn-primary">
                             {t('exploreServices')}
                         </button>
-                        <button onClick={() => navigate('/specialists')} className="flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 h-12 px-6 text-text-main dark:text-white text-base font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm">
+                        <button onClick={() => navigate('/specialists')} className="btn-secondary">
                             {t('viewDoctors')}
                         </button>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            {/* Service Pillars Grid */}
-            <div className="bg-background-light dark:bg-background-dark py-16 px-4 sm:px-10 lg:px-40">
+            {/* Service Pillars — varied accent colors break the identical-card pattern */}
+            <section className="bg-background-light dark:bg-background-dark py-20 px-4 sm:px-10 lg:px-20">
                 <div className="mx-auto max-w-[1200px]">
-                    <div className="mb-12">
-                        <h2 className="text-text-main dark:text-white tracking-tight text-3xl font-bold leading-tight sm:text-4xl">
+                    <div className="mb-14">
+                        <p className="section-label mb-2">{t('specializedCareLabel') ? '' : ''}</p>
+                        <h2 className="text-text-main dark:text-white text-display-md">
                             {t('specializedCareLabel')}
                         </h2>
-                        <p className="mt-4 max-w-[720px] text-text-muted dark:text-slate-400 text-base leading-normal">
+                        <p className="mt-3 max-w-[640px] text-text-muted dark:text-slate-400 text-base leading-relaxed font-body">
                             {t('specializedCareDesc')}
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                        {/* Card 1: Specialist Coordination */}
-                        <div className="group flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-surface-dark p-6 shadow-sm transition-all hover:shadow-md hover:border-primary/20 hover:-translate-y-1">
-                            <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                                <span className="material-symbols-outlined text-3xl">stethoscope</span>
+                    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+                        {services.map((svc, i) => (
+                            <div
+                                key={svc.titleKey}
+                                className="group flex flex-col gap-4 rounded-2xl border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark p-6 card-hover opacity-0 animate-fade-in-up"
+                                style={{ animationDelay: `${i * 80}ms` }}
+                            >
+                                <div className={`flex size-11 items-center justify-center rounded-xl ${svc.accent} transition-colors duration-300`}>
+                                    <span className="material-symbols-outlined text-2xl">{svc.icon}</span>
+                                </div>
+                                <div className="flex flex-col gap-2">
+                                    <h3 className="text-text-main dark:text-white text-lg font-bold font-body">{t(svc.titleKey)}</h3>
+                                    <p className="text-text-muted dark:text-slate-400 text-sm leading-relaxed font-body">{t(svc.descKey)}</p>
+                                </div>
+                                <div className="mt-auto pt-3">
+                                    <button
+                                        onClick={() => navigate('/ai-assistant')}
+                                        className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary-dark transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded font-body group/link"
+                                    >
+                                        {t('learnMore')}
+                                        <span className="material-symbols-outlined text-base transition-transform duration-200 ease-out-quart group-hover/link:translate-x-0.5">arrow_forward</span>
+                                    </button>
+                                </div>
                             </div>
-                            <div className="flex flex-col gap-2">
-                                <h3 className="text-text-main dark:text-white text-xl font-bold leading-tight">{t('s1Title')}</h3>
-                                <p className="text-text-muted dark:text-slate-400 text-sm leading-relaxed">{t('s1Desc')}</p>
-                            </div>
-                            <div className="mt-auto pt-4">
-                                <button onClick={() => navigate('/ai-assistant')} className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all">
-                                    {t('learnMore')} <span className="material-symbols-outlined text-base ml-1">arrow_forward</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Card 2: Second Opinion */}
-                        <div className="group flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-surface-dark p-6 shadow-sm transition-all hover:shadow-md hover:border-primary/20 hover:-translate-y-1">
-                            <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                                <span className="material-symbols-outlined text-3xl">assignment_turned_in</span>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <h3 className="text-text-main dark:text-white text-xl font-bold leading-tight">{t('s2Title')}</h3>
-                                <p className="text-text-muted dark:text-slate-400 text-sm leading-relaxed">{t('s2Desc')}</p>
-                            </div>
-                            <div className="mt-auto pt-4">
-                                <button onClick={() => navigate('/ai-assistant')} className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all">
-                                    {t('learnMore')} <span className="material-symbols-outlined text-base ml-1">arrow_forward</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Card 3: Advanced Therapies */}
-                        <div className="group flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-surface-dark p-6 shadow-sm transition-all hover:shadow-md hover:border-primary/20 hover:-translate-y-1">
-                            <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                                <span className="material-symbols-outlined text-3xl">biotech</span>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <h3 className="text-text-main dark:text-white text-xl font-bold leading-tight">{t('s3Title')}</h3>
-                                <p className="text-text-muted dark:text-slate-400 text-sm leading-relaxed">{t('s3Desc')}</p>
-                            </div>
-                            <div className="mt-auto pt-4">
-                                <button onClick={() => navigate('/ai-assistant')} className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all">
-                                    {t('learnMore')} <span className="material-symbols-outlined text-base ml-1">arrow_forward</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Card 4: Post-Surgery Nursing */}
-                        <div className="group flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-surface-dark p-6 shadow-sm transition-all hover:shadow-md hover:border-primary/20 hover:-translate-y-1">
-                            <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                                <span className="material-symbols-outlined text-3xl">medical_information</span>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <h3 className="text-text-main dark:text-white text-xl font-bold leading-tight">{t('s4Title')}</h3>
-                                <p className="text-text-muted dark:text-slate-400 text-sm leading-relaxed">{t('s4Desc')}</p>
-                            </div>
-                            <div className="mt-auto pt-4">
-                                <button onClick={() => navigate('/ai-assistant')} className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all">
-                                    {t('learnMore')} <span className="material-symbols-outlined text-base ml-1">arrow_forward</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Card 5: VIP Logistics */}
-                        <div className="group flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-surface-dark p-6 shadow-sm transition-all hover:shadow-md hover:border-primary/20 hover:-translate-y-1">
-                            <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                                <span className="material-symbols-outlined text-3xl">flight_takeoff</span>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <h3 className="text-text-main dark:text-white text-xl font-bold leading-tight">{t('s5Title')}</h3>
-                                <p className="text-text-muted dark:text-slate-400 text-sm leading-relaxed">{t('s5Desc')}</p>
-                            </div>
-                            <div className="mt-auto pt-4">
-                                <button onClick={() => navigate('/ai-assistant')} className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all">
-                                    {t('learnMore')} <span className="material-symbols-outlined text-base ml-1">arrow_forward</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Card 6: Concierge Support */}
-                        <div className="group flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-surface-dark p-6 shadow-sm transition-all hover:shadow-md hover:border-primary/20 hover:-translate-y-1">
-                            <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                                <span className="material-symbols-outlined text-3xl">support_agent</span>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <h3 className="text-text-main dark:text-white text-xl font-bold leading-tight">{t('s6Title')}</h3>
-                                <p className="text-text-muted dark:text-slate-400 text-sm leading-relaxed">{t('s6Desc')}</p>
-                            </div>
-                            <div className="mt-auto pt-4">
-                                <button onClick={() => navigate('/ai-assistant')} className="inline-flex items-center text-sm font-bold text-primary group-hover:text-secondary group-hover:gap-2 transition-all">
-                                    {t('learnMore')} <span className="material-symbols-outlined text-base ml-1">arrow_forward</span>
-                                </button>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
-            </div>
+            </section>
 
             {/* Cost Estimator Section */}
-            <div className="bg-white dark:bg-surface-dark py-16 px-4">
+            <section className="bg-surface-light dark:bg-surface-dark py-20 px-4">
                 <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-10">
-                        <h2 className="text-text-main dark:text-white tracking-tight text-3xl font-bold leading-tight sm:text-4xl">
+                    <div className="text-center mb-12">
+                        <h2 className="text-text-main dark:text-white text-display-md">
                             {t('planJourneyTitle')}
                         </h2>
-                        <p className="mt-4 max-w-[720px] mx-auto text-text-muted dark:text-slate-400 text-base leading-normal">
+                        <p className="mt-3 max-w-[640px] mx-auto text-text-muted dark:text-slate-400 text-base leading-relaxed font-body">
                             {t('planJourneyDesc')}
                         </p>
                     </div>
                     <CostEstimator />
                 </div>
-            </div>
+            </section>
 
             {/* CTA Section */}
-            <div className="bg-background-light dark:bg-background-dark py-20 px-4 sm:px-10 lg:px-40">
-                <div className="mx-auto flex max-w-[960px] flex-col items-center gap-8 rounded-2xl bg-primary/5 p-10 text-center md:p-16 border border-primary/10">
+            <section className="bg-background-light dark:bg-background-dark py-20 px-4 sm:px-10 lg:px-20">
+                <div className="mx-auto flex max-w-[960px] flex-col items-center gap-8 rounded-2xl bg-text-main p-10 text-center md:p-16">
                     <div className="flex flex-col gap-4">
-                        <h2 className="text-text-main dark:text-white text-3xl font-black leading-tight tracking-tight sm:text-4xl">
+                        <h2 className="text-white text-display-md">
                             {t('servicesCtaTitle')}
                         </h2>
-                        <p className="mx-auto max-w-[600px] text-text-muted dark:text-slate-400 text-lg font-normal leading-relaxed">
+                        <p className="mx-auto max-w-[560px] text-slate-300 text-lg leading-relaxed font-body">
                             {t('servicesCtaDesc')}
                         </p>
                     </div>
-                    <div className="flex flex-col w-full sm:flex-row justify-center gap-4">
-                        <button onClick={() => navigate('/ai-assistant')} className="flex items-center justify-center rounded-lg bg-primary shadow-lg shadow-primary/20 h-12 px-8 text-white text-base font-bold hover:bg-secondary transition-colors w-full sm:w-auto">
+                    <div className="flex flex-col w-full sm:flex-row justify-center gap-3">
+                        <button onClick={() => navigate('/ai-assistant')} className="w-full sm:w-auto h-12 px-8 bg-white text-text-main rounded-lg font-bold hover:bg-slate-50 transition-colors duration-200 ease-out-quart shadow-medium font-body">
                             {t('contactSupport')}
                         </button>
-                        <button onClick={() => navigate('/about')} className="flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 border border-primary/20 h-12 px-8 text-primary text-base font-bold hover:bg-primary/5 dark:hover:bg-slate-700 transition-colors w-full sm:w-auto">
+                        <button onClick={() => navigate('/about')} className="w-full sm:w-auto h-12 px-8 border-2 border-white/25 text-white rounded-lg font-bold hover:bg-white/10 transition-colors duration-200 ease-out-quart font-body">
                             {t('learnAboutUs')}
                         </button>
                     </div>
                 </div>
-            </div>
+            </section>
         </>
     );
 };

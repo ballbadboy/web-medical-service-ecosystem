@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const specialties = [
@@ -124,7 +124,6 @@ const BookingModal = ({ isOpen, onClose, prefillSpecialist = '' }) => {
             setErrors(validationErrors);
             return;
         }
-        console.log('Booking submitted:', formData);
         setSubmitted(true);
     };
 

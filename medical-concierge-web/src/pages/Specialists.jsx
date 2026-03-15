@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import SeoHead from '../components/SeoHead';
@@ -16,7 +16,7 @@ const specialistsData = [
         reviews: 312,
         specialties: ['Coronary Artery Disease', 'Heart Failure', 'Arrhythmia'],
         avatar: 'PS',
-        avatarColor: 'from-blue-500 to-cyan-400',
+        avatarColor: 'bg-blue-600',
         available: true,
     },
     {
@@ -30,7 +30,7 @@ const specialistsData = [
         reviews: 289,
         specialties: ['Joint Replacement', 'Spine Surgery', 'Sports Medicine'],
         avatar: 'CW',
-        avatarColor: 'from-emerald-500 to-teal-400',
+        avatarColor: 'bg-emerald-600',
         available: true,
     },
     {
@@ -44,7 +44,7 @@ const specialistsData = [
         reviews: 198,
         specialties: ['Breast Cancer', 'Lung Cancer', 'Immunotherapy'],
         avatar: 'AS',
-        avatarColor: 'from-purple-500 to-pink-400',
+        avatarColor: 'bg-violet-600',
         available: false,
     },
     {
@@ -58,7 +58,7 @@ const specialistsData = [
         reviews: 245,
         specialties: ['Brain Tumor', 'Epilepsy Surgery', 'Deep Brain Stimulation'],
         avatar: 'MT',
-        avatarColor: 'from-orange-500 to-amber-400',
+        avatarColor: 'bg-amber-600',
         available: true,
     },
     {
@@ -72,7 +72,7 @@ const specialistsData = [
         reviews: 157,
         specialties: ['Stem Cell Therapy', 'Regenerative Medicine', 'Anti-Aging'],
         avatar: 'FA',
-        avatarColor: 'from-rose-500 to-red-400',
+        avatarColor: 'bg-rose-600',
         available: true,
     },
     {
@@ -86,7 +86,7 @@ const specialistsData = [
         reviews: 421,
         specialties: ['Facial Reconstruction', 'Body Contouring', 'Rhinoplasty'],
         avatar: 'SP',
-        avatarColor: 'from-indigo-500 to-violet-400',
+        avatarColor: 'bg-indigo-600',
         available: true,
     },
 ];
@@ -138,14 +138,14 @@ const Specialists = () => {
                 description="Browse 50+ board-certified specialist doctors across cardiology, orthopedics, oncology, dental, and more. Filter by specialty, language, and availability at JCI-accredited hospitals in Bangkok."
             />
             {/* Hero */}
-            <div className="bg-white dark:bg-surface-dark border-b border-slate-100 dark:border-slate-800">
-                <div className="mx-auto max-w-7xl px-4 md:px-10 py-14 md:py-20">
+            <section className="bg-surface-light dark:bg-surface-dark border-b border-border-light dark:border-border-dark">
+                <div className="mx-auto max-w-7xl px-4 md:px-10 py-16 md:py-24">
                     <div className="max-w-2xl">
-                        <p className="text-primary font-bold text-sm uppercase tracking-widest mb-3">{t('ourMedicalTeam')}</p>
-                        <h1 className="text-4xl md:text-5xl font-black text-text-main dark:text-white leading-tight mb-4">
+                        <p className="section-label mb-3">{t('ourMedicalTeam')}</p>
+                        <h1 className="text-display-xl text-text-main dark:text-white mb-4">
                             {t('specialistsHeroTitle')}
                         </h1>
-                        <p className="text-text-muted dark:text-slate-400 text-lg leading-relaxed mb-8">
+                        <p className="text-text-muted dark:text-slate-400 text-lg leading-relaxed mb-8 font-body">
                             {t('specialistsHeroDesc')}
                         </p>
                         <div className="flex items-center gap-6 flex-wrap">
@@ -164,14 +164,14 @@ const Specialists = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
             {/* Filters & Search */}
-            <div className="bg-background-light dark:bg-background-dark py-6 border-b border-slate-200 dark:border-slate-700 sticky top-[65px] z-40">
+            <div className="bg-background-light dark:bg-background-dark py-6 border-b border-slate-200 dark:border-slate-700 sticky top-16 z-40">
                 <div className="mx-auto max-w-7xl px-4 md:px-10 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
                     {/* Search */}
                     <div className="relative w-full md:max-w-sm">
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-text-muted text-xl">search</span>
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-text-muted text-xl" aria-hidden="true">search</span>
                         <input
                             type="text"
                             placeholder={t('searchPlaceholder')}
@@ -189,7 +189,7 @@ const Specialists = () => {
                                 key={f}
                                 onClick={() => setActiveFilter(f)}
                                 aria-pressed={activeFilter === f}
-                                className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition-colors ${activeFilter === f
+                                className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${activeFilter === f
                                     ? 'bg-primary text-white border-primary'
                                     : 'bg-white dark:bg-slate-800 text-text-muted dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-primary hover:text-primary'
                                     }`}
@@ -222,10 +222,10 @@ const Specialists = () => {
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {filtered.map((doc) => (
-                                <div key={doc.id} className="bg-white dark:bg-surface-dark rounded-2xl border border-slate-200 dark:border-slate-700 p-6 flex flex-col gap-5 hover:shadow-xl hover:-translate-y-1 transition-all group">
+                                <div key={doc.id} className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-border-light dark:border-border-dark p-6 flex flex-col gap-5 card-hover group">
                                     {/* Avatar + Status */}
                                     <div className="flex items-start justify-between">
-                                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${doc.avatarColor} flex items-center justify-center text-white font-black text-xl shadow-md`}>
+                                        <div className={`w-14 h-14 rounded-2xl ${doc.avatarColor} flex items-center justify-center text-white font-bold text-lg shadow-soft font-body`}>
                                             {doc.avatar}
                                         </div>
                                         <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${doc.available
@@ -284,7 +284,7 @@ const Specialists = () => {
                                             }`}>
                                             {doc.available ? t('bookConsultation') : t('joinWaitlist')}
                                         </button>
-                                        <Link to="/ai-assistant" className="flex items-center justify-center w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary hover:text-primary text-text-muted dark:text-slate-400 transition-colors" title="Ask AI about this doctor">
+                                        <Link to="/ai-assistant" className="flex items-center justify-center w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary hover:text-primary text-text-muted dark:text-slate-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label={`Ask AI about ${doc.name}`}>
                                             <span className="material-symbols-outlined text-[20px]">chat</span>
                                         </Link>
                                     </div>
@@ -296,16 +296,16 @@ const Specialists = () => {
             </div>
 
             {/* CTA */}
-            <div className="bg-white dark:bg-surface-dark py-16 px-4 border-t border-slate-100 dark:border-slate-800">
+            <section className="bg-surface-light dark:bg-surface-dark py-20 px-4 border-t border-border-light dark:border-border-dark">
                 <div className="mx-auto max-w-3xl text-center">
-                    <h2 className="text-2xl md:text-3xl font-black text-text-main dark:text-white mb-4">{t('specialistCtaTitle')}</h2>
-                    <p className="text-text-muted dark:text-slate-400 mb-8 text-lg">{t('specialistCtaDesc')}</p>
-                    <Link to="/ai-assistant" className="inline-flex items-center justify-center gap-2 h-12 px-8 bg-primary hover:bg-secondary text-white rounded-lg font-bold transition-colors shadow-lg shadow-primary/20">
+                    <h2 className="text-display-md text-text-main dark:text-white mb-4">{t('specialistCtaTitle')}</h2>
+                    <p className="text-text-muted dark:text-slate-400 mb-8 text-lg font-body">{t('specialistCtaDesc')}</p>
+                    <Link to="/ai-assistant" className="btn-primary gap-2">
                         <span className="material-symbols-outlined text-[20px]">smart_toy</span>
                         {t('askAiAssistant')}
                     </Link>
                 </div>
-            </div>
+            </section>
 
             <BookingModal
                 isOpen={bookingOpen}

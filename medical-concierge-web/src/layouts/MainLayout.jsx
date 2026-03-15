@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Outlet, Link, NavLink, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
@@ -151,7 +151,7 @@ const Layout = () => {
                 {/* Mobile Menu */}
                 {isMenuOpen && (
                     <>
-                        <div className="lg:hidden fixed inset-0 top-[57px] bg-black/40 z-40" onClick={() => setIsMenuOpen(false)} />
+                        <div className="lg:hidden fixed inset-0 top-14 bg-black/40 z-40" onClick={() => setIsMenuOpen(false)} />
                         <div className="lg:hidden absolute top-full left-0 w-full bg-surface-light dark:bg-surface-dark border-b border-slate-200 dark:border-slate-800 py-4 px-4 flex flex-col gap-2 shadow-xl z-50">
                             <NavLink className="text-sm font-medium py-2.5 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-text-main dark:text-slate-200 hover:text-primary" to="/" onClick={() => setIsMenuOpen(false)}>{t('homeNav')}</NavLink>
                             <NavLink className="text-sm font-medium py-2.5 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-text-main dark:text-slate-200 hover:text-primary" to="/services" onClick={() => setIsMenuOpen(false)}>{t('services')}</NavLink>
@@ -193,7 +193,7 @@ const Layout = () => {
                 <Outlet />
             </main>
 
-            <footer className="bg-surface-dark text-slate-400 py-12 border-t border-slate-800" role="contentinfo">
+            <footer className="bg-text-main text-slate-400 py-14 border-t border-border-dark" role="contentinfo">
                 <div className="mx-auto max-w-7xl px-4 md:px-10">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
                         <div className="col-span-1 md:col-span-2">
@@ -205,9 +205,9 @@ const Layout = () => {
                                 {t('footerDesc')}
                             </p>
                             <div className="flex gap-4">
-                                <a className="text-slate-400 hover:text-white transition-colors" href="#" aria-label="Social media"><span className="material-symbols-outlined">social_leaderboard</span></a>
-                                <a className="text-slate-400 hover:text-white transition-colors" href="#" aria-label="YouTube channel"><span className="material-symbols-outlined">smart_display</span></a>
-                                <a className="text-slate-400 hover:text-white transition-colors" href="#" aria-label="Instagram"><span className="material-symbols-outlined">photo_camera</span></a>
+                                <a className="text-slate-400 hover:text-white transition-colors" href="#" aria-label="Bio Connext on Facebook"><span className="material-symbols-outlined" aria-hidden="true">social_leaderboard</span></a>
+                                <a className="text-slate-400 hover:text-white transition-colors" href="#" aria-label="Bio Connext on YouTube"><span className="material-symbols-outlined" aria-hidden="true">smart_display</span></a>
+                                <a className="text-slate-400 hover:text-white transition-colors" href="#" aria-label="Bio Connext on Instagram"><span className="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
                             </div>
                         </div>
                         <div>
@@ -237,7 +237,7 @@ const Layout = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+                    <div className="pt-8 border-t border-border-dark flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-body">
                         <p>{t('footerCopyright')}</p>
                         <div className="flex gap-6">
                             <a className="hover:text-white transition-colors" href="#">{t('footerPrivacy')}</a>
