@@ -1,5 +1,4 @@
 import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import SeoHead from '../components/SeoHead';
 import BookingModal from '../components/BookingModal';
@@ -284,9 +283,6 @@ const Specialists = () => {
                                             }`}>
                                             {doc.available ? t('bookConsultation') : t('joinWaitlist')}
                                         </button>
-                                        <Link to="/ai-assistant" className="flex items-center justify-center w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary hover:text-primary text-text-muted dark:text-slate-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label={`Ask AI about ${doc.name}`}>
-                                            <span className="material-symbols-outlined text-[20px]">chat</span>
-                                        </Link>
                                     </div>
                                 </div>
                             ))}
@@ -300,10 +296,10 @@ const Specialists = () => {
                 <div className="mx-auto max-w-3xl text-center">
                     <h2 className="text-display-md text-text-main dark:text-white mb-4">{t('specialistCtaTitle')}</h2>
                     <p className="text-text-muted dark:text-slate-400 mb-8 text-lg font-body">{t('specialistCtaDesc')}</p>
-                    <Link to="/ai-assistant" className="btn-primary gap-2">
-                        <span className="material-symbols-outlined text-[20px]">smart_toy</span>
-                        {t('askAiAssistant')}
-                    </Link>
+                    <button onClick={() => { setBookingSpecialist(''); setBookingOpen(true); }} className="btn-primary gap-2">
+                        <span className="material-symbols-outlined text-[20px]">calendar_month</span>
+                        {t('bookConsultation')}
+                    </button>
                 </div>
             </section>
 

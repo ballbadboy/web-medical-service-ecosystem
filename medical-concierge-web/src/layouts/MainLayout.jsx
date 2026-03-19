@@ -68,7 +68,7 @@ const Layout = () => {
                     <div className="hidden lg:flex flex-1 justify-end gap-8">
                         <nav className="flex items-center gap-6 xl:gap-9" aria-label="Main navigation">
                             <NavLink className={navLinkClass} to="/services">{t('services')}</NavLink>
-                            <NavLink className={navLinkClass} to="/ai-assistant">{t('aiAssistant')}</NavLink>
+                            <NavLink className={navLinkClass} to="/pricing">{t('pricingNav')}</NavLink>
                             <NavLink className={navLinkClass} to="/specialists">{t('specialists')}</NavLink>
                             <NavLink className={navLinkClass} to="/about">{t('about')}</NavLink>
 
@@ -122,7 +122,7 @@ const Layout = () => {
                             </button>
                         </nav>
                         <button
-                            onClick={() => navigate('/services')}
+                            onClick={() => navigate('/pricing')}
                             className="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-5 bg-primary hover:bg-secondary transition-colors text-white text-sm font-bold shadow-lg shadow-primary/20">
                             <span className="truncate">{t('bookBtn')}</span>
                         </button>
@@ -155,7 +155,7 @@ const Layout = () => {
                         <div className="lg:hidden absolute top-full left-0 w-full bg-surface-light dark:bg-surface-dark border-b border-slate-200 dark:border-slate-800 py-4 px-4 flex flex-col gap-2 shadow-xl z-50">
                             <NavLink className="text-sm font-medium py-2.5 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-text-main dark:text-slate-200 hover:text-primary" to="/" onClick={() => setIsMenuOpen(false)}>{t('homeNav')}</NavLink>
                             <NavLink className="text-sm font-medium py-2.5 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-text-main dark:text-slate-200 hover:text-primary" to="/services" onClick={() => setIsMenuOpen(false)}>{t('services')}</NavLink>
-                            <NavLink className="text-sm font-medium py-2.5 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-text-main dark:text-slate-200 hover:text-primary" to="/ai-assistant" onClick={() => setIsMenuOpen(false)}>{t('aiAssistant')}</NavLink>
+                            <NavLink className="text-sm font-medium py-2.5 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-text-main dark:text-slate-200 hover:text-primary" to="/pricing" onClick={() => setIsMenuOpen(false)}>{t('pricingNav')}</NavLink>
                             <NavLink className="text-sm font-medium py-2.5 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-text-main dark:text-slate-200 hover:text-primary" to="/specialists" onClick={() => setIsMenuOpen(false)}>{t('specialists')}</NavLink>
                             <NavLink className="text-sm font-medium py-2.5 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-text-main dark:text-slate-200 hover:text-primary" to="/about" onClick={() => setIsMenuOpen(false)}>{t('about')}</NavLink>
                             <div className="border-t border-slate-200 dark:border-slate-700 my-2"></div>
@@ -180,7 +180,7 @@ const Layout = () => {
                                 ))}
                             </div>
                             <button
-                                onClick={() => { navigate('/services'); setIsMenuOpen(false); }}
+                                onClick={() => { navigate('/pricing'); setIsMenuOpen(false); }}
                                 className="flex cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold mt-2">
                                 {t('bookBtn')}
                             </button>
@@ -214,7 +214,7 @@ const Layout = () => {
                             <h4 className="text-white font-bold mb-4">{t('footerServices')}</h4>
                             <ul className="space-y-2 text-sm">
                                 <li><Link className="hover:text-primary transition-colors" to="/services">{t('services')}</Link></li>
-                                <li><Link className="hover:text-primary transition-colors" to="/ai-assistant">{t('footerAiConcierge')}</Link></li>
+                                <li><Link className="hover:text-primary transition-colors" to="/pricing">{t('pricingNav')}</Link></li>
                                 <li><Link className="hover:text-primary transition-colors" to="/specialists">{t('specialists')}</Link></li>
                                 <li><Link className="hover:text-primary transition-colors" to="/about">{t('about')}</Link></li>
                             </ul>

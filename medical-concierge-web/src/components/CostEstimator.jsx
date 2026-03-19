@@ -185,7 +185,7 @@ const CostEstimator = () => {
                         <p className="text-text-muted dark:text-slate-400 mb-8 max-w-md mx-auto">
                             {t('ceStep3Desc')}
                         </p>
-                        <button onClick={() => navigate('/ai-assistant')} className="btn-primary px-8">
+                        <button onClick={() => navigate('/specialists')} className="btn-primary px-8">
                             {t('ceProceedBtn')}
                         </button>
                     </div>

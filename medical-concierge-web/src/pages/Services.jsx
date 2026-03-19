@@ -34,7 +34,7 @@ const Services = () => {
                         {t('servicesHeroDesc')}
                     </p>
                     <div className="flex justify-center gap-3 pt-4">
-                        <button onClick={() => navigate('/ai-assistant')} className="btn-primary">
+                        <button onClick={() => document.getElementById('service-pillars')?.scrollIntoView({ behavior: 'smooth' })} className="btn-primary">
                             {t('exploreServices')}
                         </button>
                         <button onClick={() => navigate('/specialists')} className="btn-secondary">
@@ -45,7 +45,7 @@ const Services = () => {
             </section>
 
             {/* Service Pillars — varied accent colors break the identical-card pattern */}
-            <section className="bg-background-light dark:bg-background-dark py-20 px-4 sm:px-10 lg:px-20">
+            <section id="service-pillars" className="bg-background-light dark:bg-background-dark py-20 px-4 sm:px-10 lg:px-20">
                 <div className="mx-auto max-w-[1200px]">
                     <div className="mb-14">
                         <p className="section-label mb-2">{t('specializedCareLabel') ? '' : ''}</p>
@@ -73,7 +73,7 @@ const Services = () => {
                                 </div>
                                 <div className="mt-auto pt-3">
                                     <button
-                                        onClick={() => navigate('/ai-assistant')}
+                                        onClick={() => navigate('/specialists')}
                                         className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary-dark transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded font-body group/link"
                                     >
                                         {t('learnMore')}
@@ -113,7 +113,7 @@ const Services = () => {
                         </p>
                     </div>
                     <div className="flex flex-col w-full sm:flex-row justify-center gap-3">
-                        <button onClick={() => navigate('/ai-assistant')} className="w-full sm:w-auto h-12 px-8 bg-white text-text-main rounded-lg font-bold hover:bg-slate-50 transition-colors duration-200 ease-out-quart shadow-medium font-body">
+                        <button onClick={() => navigate('/specialists')} className="w-full sm:w-auto h-12 px-8 bg-white text-text-main rounded-lg font-bold hover:bg-slate-50 transition-colors duration-200 ease-out-quart shadow-medium font-body">
                             {t('contactSupport')}
                         </button>
                         <button onClick={() => navigate('/about')} className="w-full sm:w-auto h-12 px-8 border-2 border-white/25 text-white rounded-lg font-bold hover:bg-white/10 transition-colors duration-200 ease-out-quart font-body">

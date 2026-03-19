@@ -25,11 +25,11 @@ const NotFound = () => {
                             {t('notFoundHome')}
                         </Link>
                         <Link
-                            to="/ai-assistant"
+                            to="/services"
                             className="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-lg font-bold hover:bg-primary/5 transition-colors"
                         >
-                            <span className="material-symbols-outlined text-lg">support_agent</span>
-                            {t('notFoundAi')}
+                            <span className="material-symbols-outlined text-lg">medical_services</span>
+                            {t('services')}
                         </Link>
                     </div>
                 </div>

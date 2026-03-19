@@ -11,7 +11,8 @@ const Home = React.lazy(() => import('./pages/Home'));
 const Services = React.lazy(() => import('./pages/Services'));
 const Specialists = React.lazy(() => import('./pages/Specialists'));
 const About = React.lazy(() => import('./pages/About'));
-const AiAssistant = React.lazy(() => import('./pages/AiAssistant'));
+const Pricing = React.lazy(() => import('./pages/Pricing'));
+const Payment = React.lazy(() => import('./pages/Payment'));
 const NotFound = React.lazy(() => import('./pages/NotFound'));
 
 function App() {
@@ -28,9 +29,10 @@ function App() {
                   <Route path="services" element={<Services />} />
                   <Route path="specialists" element={<Specialists />} />
                   <Route path="about" element={<About />} />
+                  <Route path="pricing" element={<Pricing />} />
+                  <Route path="payment" element={<Payment />} />
                   <Route path="*" element={<NotFound />} />
                 </Route>
-                <Route path="/ai-assistant" element={<AiAssistant />} />
               </Routes>
             </Suspense>
           </Router>
